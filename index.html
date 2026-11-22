@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -5,674 +6,596 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>8Dróg do przyszłości</title>
 <meta name="description" content="8Dróg do przyszłości – razem zmieniamy naszą szkołę!">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root {
-  --bg:#eef6ff;
-  --card:#ffffff;
-  --text:#173b61;
-  --muted:#607b98;
-  --blue:#1565c0;
-  --blue2:#3698e8;
-  --border:#d6e8fa;
+  --bg:#eef6ff;--card:#fff;--text:#173b61;--muted:#607b98;
+  --blue:#1565c0;--blue2:#3698e8;--border:#d6e8fa;
   --shadow:0 10px 30px rgba(21,101,192,.10);
 }
 body.dark {
-  --bg:#101b2b;
-  --card:#192a40;
-  --text:#e6f2ff;
-  --muted:#a7bdd5;
-  --blue:#58aaff;
-  --blue2:#287dc5;
-  --border:#304761;
+  --bg:#101b2b;--card:#192a40;--text:#e6f2ff;--muted:#a7bdd5;
+  --blue:#58aaff;--blue2:#287dc5;--border:#304761;
   --shadow:0 10px 30px rgba(0,0,0,.2);
 }
-* {box-sizing:border-box;scroll-behavior:smooth}
-body {
-  margin:0;
-  font-family:Arial,sans-serif;
-  color:var(--text);
-  background:var(--bg);
-  transition:background .3s,color .3s;
-  overflow-x:hidden;
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;color:var(--text);background:var(--bg);transition:background .3s,color .3s;overflow-x:hidden}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.container{width:min(1120px,92%);margin:auto}
+section{padding:75px 0;scroll-margin-top:80px}
+h1,h2,h3{line-height:1.2}
+h2{font-size:clamp(27px,4vw,38px);text-align:center;margin:0 0 15px}
+.subtitle{text-align:center;color:var(--muted);margin:0 auto 35px;max-width:700px;line-height:1.7}
+
+header{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--border);box-shadow:0 3px 15px rgba(0,0,0,.04)}
+.nav{min-height:85px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:23px;font-weight:900;color:var(--blue);display:flex;align-items:center;gap:10px}
+nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+nav a{font-size:14px;font-weight:bold}
+nav a:hover{color:var(--blue)}
+.nav-actions{display:flex;gap:8px}
+.small-btn,.btn{border:0;border-radius:25px;padding:11px 17px;background:var(--blue);color:white;font-weight:bold;transition:.2s}
+.small-btn:hover,.btn:hover{transform:translateY(-3px);filter:brightness(1.1)}
+.small-btn.secondary{background:var(--bg);color:var(--text);border:1px solid var(--border)}
+
+/* KRÓLEWSKI KOLIBER */
+.king-logo{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:76px;height:76px;border:4px solid #64c5ff;border-radius:50%;
+  background:linear-gradient(145deg,#eaf8ff,#b9e5ff);
+  box-shadow:0 0 12px rgba(54,152,232,.4);overflow:hidden;flex-shrink:0;
 }
-button,input,textarea,select {font:inherit}
-button {cursor:pointer}
-a {color:inherit;text-decoration:none}
-.container {width:min(1120px,92%);margin:auto}
-section {padding:75px 0;scroll-margin-top:80px}
-h1,h2,h3 {line-height:1.2}
-h2 {font-size:clamp(27px,4vw,38px);text-align:center;margin:0 0 15px}
-.subtitle {text-align:center;color:var(--muted);margin:0 auto 35px;max-width:700px;line-height:1.7}
-header {
-  position:sticky;top:0;z-index:20;
-  background:var(--card);border-bottom:1px solid var(--border);
-  box-shadow:0 3px 15px rgba(0,0,0,.04);
+.king-logo svg{width:100%;height:100%}
+.hero-logo.king-logo{width:150px;height:150px}
+.welcome-box .king-logo{width:115px;height:115px}
+
+.hero{min-height:590px;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#dceeff,#a9d8ff,#f1f8ff);color:#123e70;padding:80px 15px}
+body.dark .hero{background:linear-gradient(135deg,#142c48,#174c78,#1b304b);color:#eef7ff}
+.hero-content{position:relative;z-index:2;max-width:850px}
+.hero h1{font-size:clamp(38px,7vw,70px);margin:15px 0}
+.hero p{font-size:19px;line-height:1.7;max-width:700px;margin:0 auto 28px}
+.hero-logo{display:inline-block;animation:logoFloat 3s ease-in-out infinite}
+@keyframes logoFloat{50%{transform:translateY(-12px) rotate(4deg)}}
+.hero-orb{position:absolute;border-radius:50%;background:rgba(255,255,255,.25);animation:float 9s ease-in-out infinite}
+.orb1{width:180px;height:180px;top:10%;left:8%}
+.orb2{width:110px;height:110px;bottom:12%;right:12%;animation-delay:2s}
+.orb3{width:65px;height:65px;top:22%;right:25%;animation-delay:4s}
+@keyframes float{50%{transform:translate(20px,-30px)}}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:-35px;position:relative;z-index:3}
+.stat,.card,.form-card,.admin-card,.info-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:25px;box-shadow:var(--shadow)}
+.stat{text-align:center}
+.stat strong{font-size:34px;color:var(--blue);display:block}
+.stat span{font-size:14px;color:var(--muted)}
+.about{text-align:center;max-width:850px;margin:auto;line-height:1.9;font-size:17px}
+.goals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-8px);box-shadow:0 16px 35px rgba(21,101,192,.17)}
+.card .emoji{font-size:38px;display:block;margin-bottom:14px;animation:iconMove 3s ease-in-out infinite}
+.card:nth-child(even) .emoji{animation-delay:1s}
+@keyframes iconMove{50%{transform:translateY(-6px) rotate(5deg)}}
+.card h3{margin:0 0 10px;font-size:19px}
+.card p{color:var(--muted);line-height:1.6;font-size:14px;margin:0}
+.road-signs{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.sign{display:block;text-align:center;padding:20px 12px;background:var(--card);border:2px solid var(--border);border-radius:15px;font-weight:bold;transition:.25s;box-shadow:var(--shadow)}
+.sign:hover{transform:translateY(-7px) rotate(-1deg);border-color:var(--blue);color:var(--blue)}
+.sign span{display:block;font-size:27px;margin-bottom:8px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.form-card h3{margin-top:0}
+input,textarea,select{width:100%;padding:13px;margin:8px 0 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--blue)}
+textarea{min-height:115px;resize:vertical}
+.status{font-size:14px;margin-top:12px;color:var(--blue)}
+.teacher-box{background:linear-gradient(135deg,#dceeff,#f6fbff);color:#173b61;border-radius:22px;padding:35px}
+body.dark .teacher-box{background:#203c5a;color:#e6f2ff}
+.teacher-box ul{line-height:2}
+.opinion-list{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.opinion{background:var(--card);padding:20px;border:1px solid var(--border);border-radius:15px}
+.opinion p{line-height:1.6;color:var(--muted)}
+.opinion small{color:var(--blue);font-weight:bold}
+footer{padding:35px 15px;text-align:center;background:var(--card);border-top:1px solid var(--border);color:var(--muted)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+#topButton{position:fixed;bottom:22px;right:22px;z-index:30;width:48px;height:48px;border:0;border-radius:50%;background:var(--blue);color:white;font-size:23px;box-shadow:var(--shadow);display:none}
+#topButton.show{display:block}
+#welcome{position:fixed;inset:0;background:rgba(8,30,55,.88);z-index:100;display:grid;place-items:center;padding:20px}
+.welcome-box{background:var(--card);color:var(--text);border-radius:25px;padding:40px;text-align:center;max-width:480px;width:100%;animation:welcomeIn .6s ease}
+@keyframes welcomeIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+.welcome-box .big{font-size:60px}
+.hidden{display:none!important}
+.admin-card{margin-top:20px}
+.idea-item{padding:15px 0;border-bottom:1px solid var(--border);line-height:1.6}
+.idea-item button{margin-top:8px}
+.admin-columns{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* LATAJĄCY KOLIBER */
+#flyingHummingbird{position:fixed;top:25%;left:-100px;width:65px;height:55px;z-index:15;pointer-events:none;animation:hummingbirdFlight 24s linear infinite,hummingbirdHover 1.2s ease-in-out infinite}
+#flyingHummingbird svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 3px 5px rgba(21,101,192,.25))}
+.hummingbird-wing{transform-box:fill-box;transform-origin:center;animation:wingFlap .13s ease-in-out infinite alternate}
+@keyframes hummingbirdFlight{
+0%{left:-100px;top:20%;transform:scaleX(1)}
+24%{left:35%;top:35%;transform:scaleX(1)}
+25%{left:36%;top:35%;transform:scaleX(-1)}
+49%{left:calc(100% + 100px);top:18%;transform:scaleX(-1)}
+50%{left:calc(100% + 100px);top:65%;transform:scaleX(1)}
+74%{left:40%;top:72%;transform:scaleX(1)}
+75%{left:39%;top:72%;transform:scaleX(-1)}
+99%{left:-100px;top:40%;transform:scaleX(-1)}
+100%{left:-100px;top:20%;transform:scaleX(1)}
 }
-.nav {min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.logo {font-size:23px;font-weight:900;color:var(--blue)}
-nav {display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-nav a {font-size:14px;font-weight:bold}
-nav a:hover {color:var(--blue)}
-.nav-actions {display:flex;gap:8px}
-.small-btn,.btn {
-  border:0;border-radius:25px;padding:11px 17px;
-  background:var(--blue);color:white;font-weight:bold;
-  transition:.2s;
+@keyframes hummingbirdHover{0%,100%{margin-top:0}50%{margin-top:-10px}}
+@keyframes wingFlap{from{transform:rotate(-35deg)}to{transform:rotate(35deg)}}
+
+@media(max-width:850px){
+.goals-grid,.road-signs{grid-template-columns:repeat(2,1fr)}
+nav{gap:10px}
+.nav{padding:12px 0;flex-wrap:wrap}
+.opinion-list{grid-template-columns:1fr 1fr}
 }
-.small-btn:hover,.btn:hover {transform:translateY(-3px);filter:brightness(1.1)}
-.small-btn.secondary {background:var(--bg);color:var(--text);border:1px solid var(--border)}
-.hero {
-  min-height:590px;display:grid;place-items:center;text-align:center;
-  position:relative;overflow:hidden;
-  background:linear-gradient(135deg,#dceeff,#a9d8ff,#f1f8ff);
-  color:#123e70;padding:80px 15px;
+@media(max-width:600px){
+nav{width:100%;justify-content:center}
+nav a{font-size:12px}
+.nav-actions{margin:auto}
+.stats{grid-template-columns:1fr;margin-top:15px}
+.goals-grid,.road-signs,.form-grid,.admin-columns,.opinion-list{grid-template-columns:1fr}
+.hero{min-height:500px}
+section{padding:55px 0}
 }
-body.dark .hero {background:linear-gradient(135deg,#142c48,#174c78,#1b304b);color:#eef7ff}
-.hero-content {position:relative;z-index:2;max-width:850px}
-.hero h1 {font-size:clamp(38px,7vw,70px);margin:15px 0}
-.hero p {font-size:19px;line-height:1.7;max-width:700px;margin:0 auto 28px}
-.hero-logo {font-size:70px;display:inline-block;animation:logoFloat 3s ease-in-out infinite}
-@keyframes logoFloat {50%{transform:translateY(-12px) rotate(4deg)}}
-.hero-orb {
- position:absolute;border-radius:50%;background:rgba(255,255,255,.25);
- animation:float 9s ease-in-out infinite;
-}
-.orb1 {width:180px;height:180px;top:10%;left:8%}
-.orb2 {width:110px;height:110px;bottom:12%;right:12%;animation-delay:2s}
-.orb3 {width:65px;height:65px;top:22%;right:25%;animation-delay:4s}
-@keyframes float {50%{transform:translate(20px,-30px)}}
-.stats {display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:-35px;position:relative;z-index:3}
-.stat,.card,.form-card,.admin-card,.info-card {
- background:var(--card);border:1px solid var(--border);border-radius:20px;
- padding:25px;box-shadow:var(--shadow);
-}
-.stat {text-align:center}
-.stat strong {font-size:34px;color:var(--blue);display:block}
-.stat span {font-size:14px;color:var(--muted)}
-.about {text-align:center;max-width:850px;margin:auto;line-height:1.9;font-size:17px}
-.goals-grid {display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.card {transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
-.card:hover {transform:translateY(-8px);box-shadow:0 16px 35px rgba(21,101,192,.17)}
-.card .emoji {font-size:38px;display:block;margin-bottom:14px;animation:iconMove 3s ease-in-out infinite}
-.card:nth-child(even) .emoji {animation-delay:1s}
-@keyframes iconMove {50%{transform:translateY(-6px) rotate(5deg)}}
-.card h3 {margin:0 0 10px;font-size:19px}
-.card p {color:var(--muted);line-height:1.6;font-size:14px;margin:0}
-.road-signs {display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
-.sign {
- display:block;text-align:center;padding:20px 12px;background:var(--card);
- border:2px solid var(--border);border-radius:15px;font-weight:bold;
- transition:.25s;box-shadow:var(--shadow);
-}
-.sign:hover {transform:translateY(-7px) rotate(-1deg);border-color:var(--blue);color:var(--blue)}
-.sign span {display:block;font-size:27px;margin-bottom:8px}
-.form-grid {display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.form-card h3 {margin-top:0}
-input,textarea,select {
- width:100%;padding:13px;margin:8px 0 14px;
- border:1px solid var(--border);border-radius:10px;
- background:var(--bg);color:var(--text);outline:none;
-}
-input:focus,textarea:focus,select:focus {border-color:var(--blue)}
-textarea {min-height:115px;resize:vertical}
-.status {font-size:14px;margin-top:12px;color:var(--blue)}
-.teacher-box {
- background:linear-gradient(135deg,#dceeff,#f6fbff);
- color:#173b61;border-radius:22px;padding:35px;
-}
-body.dark .teacher-box {background:#203c5a;color:#e6f2ff}
-.teacher-box ul {line-height:2}
-.opinion-list {display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.opinion {background:var(--card);padding:20px;border:1px solid var(--border);border-radius:15px}
-.opinion p {line-height:1.6;color:var(--muted)}
-.opinion small {color:var(--blue);font-weight:bold}
-footer {padding:35px 15px;text-align:center;background:var(--card);border-top:1px solid var(--border);color:var(--muted)}
-.reveal {opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
-.reveal.visible {opacity:1;transform:translateY(0)}
-#topButton {
- position:fixed;bottom:22px;right:22px;z-index:30;
- width:48px;height:48px;border:0;border-radius:50%;
- background:var(--blue);color:white;font-size:23px;
- box-shadow:var(--shadow);display:none;
-}
-#topButton.show {display:block}
-#welcome {
- position:fixed;inset:0;background:rgba(8,30,55,.88);z-index:100;
- display:grid;place-items:center;padding:20px;
-}
-.welcome-box {
- background:var(--card);color:var(--text);border-radius:25px;
- padding:40px;text-align:center;max-width:480px;width:100%;
- animation:welcomeIn .6s ease;
-}
-@keyframes welcomeIn {from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-.welcome-box .big {font-size:60px}
-.hidden {display:none!important}
-.admin-card {margin-top:20px}
-.idea-item {padding:15px 0;border-bottom:1px solid var(--border);line-height:1.6}
-.idea-item button {margin-top:8px}
-.admin-columns {display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:850px) {
- .goals-grid,.road-signs {grid-template-columns:repeat(2,1fr)}
- nav {gap:10px}
- .nav {padding:12px 0;flex-wrap:wrap}
- .opinion-list {grid-template-columns:1fr 1fr}
-}
-@media(max-width:600px) {
- nav {width:100%;justify-content:center}
- nav a {font-size:12px}
- .nav-actions {margin:auto}
- .stats {grid-template-columns:1fr;margin-top:15px}
- .goals-grid,.road-signs,.form-grid,.admin-columns,.opinion-list {grid-template-columns:1fr}
- .hero {min-height:500px}
- section {padding:55px 0}
-}
-@media(prefers-reduced-motion:reduce) {
- *,*::before,*::after {scroll-behavior:auto!important;animation:none!important;transition:none!important}
- .reveal {opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+.reveal{opacity:1;transform:none}
+#flyingHummingbird{display:none}
 }
 </style>
 </head>
 
 <body>
 
+<!-- RYSUNEK KRÓLEWSKIEGO KOLIBRA -->
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
+<symbol id="kingHummingbird" viewBox="0 0 160 160">
+<defs>
+<linearGradient id="birdBody" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stop-color="#a9e5ff"/>
+<stop offset="100%" stop-color="#258bd5"/>
+</linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0%" stop-color="#fff0a6"/>
+<stop offset="100%" stop-color="#c58a20"/>
+</linearGradient>
+</defs>
+<circle cx="80" cy="80" r="76" fill="#eaf8ff" stroke="#42b8f5" stroke-width="5"/>
+<circle cx="80" cy="80" r="69" fill="none" stroke="#fff" stroke-width="2"/>
+<!-- Tron -->
+<path d="M35 119 L35 75 Q35 60 49 60 L111 60 Q125 60 125 75 L125 119Z" fill="url(#gold)" stroke="#a36c16" stroke-width="4"/>
+<path d="M45 113 L45 78 L115 78 L115 113Z" fill="#287dc5"/>
+<path d="M30 119 L130 119 L137 137 L23 137Z" fill="url(#gold)" stroke="#a36c16" stroke-width="3"/>
+<circle cx="40" cy="68" r="7" fill="#ffe58a"/>
+<circle cx="120" cy="68" r="7" fill="#ffe58a"/>
+<!-- Królewski płaszcz -->
+<path d="M53 82 Q80 68 107 82 L119 132 Q80 145 41 132Z" fill="#b9e8ff" stroke="#fff" stroke-width="3"/>
+<path d="M55 84 L80 105 L105 84 L96 132 L64 132Z" fill="#65b9ee"/>
+<!-- Głowa i szyja -->
+<path d="M64 77 Q52 52 69 37 Q88 22 105 43 Q116 59 99 77Z" fill="url(#birdBody)" stroke="#1768a8" stroke-width="2"/>
+<path d="M101 49 L145 39 L105 58Z" fill="#17466f"/>
+<circle cx="98" cy="43" r="4" fill="#102f55"/>
+<circle cx="99" cy="42" r="1.5" fill="#fff"/>
+<!-- Skrzydła -->
+<path d="M68 76 Q27 45 42 24 Q72 35 84 74Z" fill="#80d2ff" stroke="#258bd5" stroke-width="3"/>
+<path d="M91 78 Q125 47 117 27 Q91 39 83 75Z" fill="#a9e5ff" stroke="#258bd5" stroke-width="3"/>
+<!-- Korona -->
+<path d="M61 34 L56 13 L73 25 L81 5 L91 25 L108 13 L102 36Z" fill="url(#gold)" stroke="#9b6818" stroke-width="3"/>
+<path d="M61 35 L103 35 L100 43 L64 43Z" fill="#e8b83e" stroke="#9b6818" stroke-width="2"/>
+<circle cx="81" cy="31" r="4" fill="#55b9f4"/>
+<circle cx="57" cy="12" r="3" fill="#fff1a6"/>
+<circle cx="81" cy="5" r="3" fill="#fff1a6"/>
+<circle cx="108" cy="12" r="3" fill="#fff1a6"/>
+<circle cx="35" cy="119" r="5" fill="#fff0a6"/>
+<circle cx="125" cy="119" r="5" fill="#fff0a6"/>
+</symbol>
+</svg>
+
 <div id="welcome">
-  <div class="welcome-box">
-    <div class="big">🛣️</div>
-    <h1>Witaj na 8Drodze!</h1>
-    <p>Osiem pomysłów. Jeden wspólny cel. Lepsza przyszłość naszej szkoły!</p>
-    <button class="btn" onclick="closeWelcome()">Poznaj nas!</button>
-  </div>
+<div class="welcome-box">
+<div class="king-logo"><svg viewBox="0 0 160 160"><use href="#kingHummingbird"/></svg></div>
+<h1>Witaj na 8Drodze!</h1>
+<p>Osiem pomysłów. Jeden wspólny cel. Lepsza przyszłość naszej szkoły!</p>
+<button class="btn" onclick="closeWelcome()">Poznaj nas!</button>
+</div>
 </div>
 
 <header>
-  <div class="container nav">
-    <a href="#home" class="logo">🛣️ 8Droga</a>
-    <nav>
-      <a href="#home">Główna</a>
-      <a href="#about">O nas</a>
-      <a href="#goals">Nasze cele</a>
-      <a href="#ideas">Pomysły</a>
-      <a href="#opinions">Opinie</a>
-      <a href="#teachers">Dla nauczycieli</a>
-      <a href="#admin">Administrator</a>
-    </nav>
-    <div class="nav-actions">
-      <button class="small-btn secondary" onclick="toggleTheme()" id="themeButton">🌙</button>
-    </div>
-  </div>
+<div class="container nav">
+<a href="#home" class="logo">
+<span class="king-logo"><svg viewBox="0 0 160 160"><use href="#kingHummingbird"/></svg></span>
+8Droga
+</a>
+<nav>
+<a href="#home">Główna</a>
+<a href="#about">O nas</a>
+<a href="#goals">Nasze cele</a>
+<a href="#ideas">Pomysły</a>
+<a href="#opinions">Opinie</a>
+<a href="#teachers">Dla nauczycieli</a>
+<a href="#admin">Administrator</a>
+</nav>
+<div class="nav-actions">
+<button class="small-btn secondary" onclick="toggleTheme()" id="themeButton">🌙</button>
+</div>
+</div>
 </header>
 
 <main>
 <section class="hero" id="home">
-  <div class="hero-orb orb1"></div><div class="hero-orb orb2"></div><div class="hero-orb orb3"></div>
-  <div class="hero-content">
-    <div class="hero-logo">🛣️</div>
-    <h1>8Dróg do przyszłości</h1>
-    <p>Osiem pomysłów. Jeden wspólny cel. Razem możemy sprawić, że nasza szkoła będzie jeszcze lepszym miejscem!</p>
-    <a href="#goals" class="btn">Poznaj nasze cele ↓</a>
-  </div>
+<div class="hero-orb orb1"></div><div class="hero-orb orb2"></div><div class="hero-orb orb3"></div>
+<div class="hero-content">
+<div class="hero-logo king-logo"><svg viewBox="0 0 160 160"><use href="#kingHummingbird"/></svg></div>
+<h1>8Dróg do przyszłości</h1>
+<p>Osiem pomysłów. Jeden wspólny cel. Razem możemy sprawić, że nasza szkoła będzie jeszcze lepszym miejscem!</p>
+<a href="#goals" class="btn">Poznaj nasze cele ↓</a>
+</div>
 </section>
 
 <div class="container stats reveal">
-  <div class="stat"><strong>8</strong><span>ważnych postulatów</span></div>
-  <div class="stat"><strong>1</strong><span>wspólny cel</span></div>
-  <div class="stat"><strong>100%</strong><span>zaangażowania</span></div>
+<div class="stat"><strong>8</strong><span>ważnych postulatów</span></div>
+<div class="stat"><strong>1</strong><span>wspólny cel</span></div>
+<div class="stat"><strong>100%</strong><span>zaangażowania</span></div>
 </div>
 
 <section id="about" class="container reveal">
-  <h2>Kim jesteśmy?</h2>
-  <p class="subtitle">Poznaj naszą ideę i wspólny cel.</p>
-  <p class="about">Jesteśmy zgraną i zdecydowaną grupą młodych i zdolnych nastolatków. Naszym celem, jak sama nazwa naszej partii mówi, jest zaproponowanie aż 8 Dróg do przyszłości! Chcemy, aby nasza szkoła była miejscem pełnym radości, współpracy, pomysłów i pozytywnej energii.</p>
+<h2>Kim jesteśmy?</h2>
+<p class="subtitle">Poznaj naszą ideę i wspólny cel.</p>
+<p class="about">Jesteśmy zgraną i zdecydowaną grupą młodych i zdolnych nastolatków. Naszym celem, jak sama nazwa naszej partii mówi, jest zaproponowanie aż 8 Dróg do przyszłości! Chcemy, aby nasza szkoła była miejscem pełnym radości, współpracy, pomysłów i pozytywnej energii.</p>
 </section>
 
 <section id="goals" class="container reveal">
-  <h2>Nasze 8 postulatów</h2>
-  <p class="subtitle">Osiem dróg, które mogą prowadzić do lepszej szkoły.</p>
-  <div class="goals-grid">
-    <article class="card" id="cel1"><span class="emoji">🍀</span><h3>Szczęśliwe numerki</h3><p>Więcej radości i pozytywnej energii.</p></article>
-    <article class="card" id="cel2"><span class="emoji">📻</span><h3>Radiowęzeł</h3><p>Zawsze na bieżąco z ważnymi informacjami.</p></article>
-    <article class="card" id="cel3"><span class="emoji">🤝</span><h3>Pomoc dyżurującym nauczycielom</h3><p>Większe wsparcie i lepsza organizacja.</p></article>
-    <article class="card" id="cel4"><span class="emoji">🛋️</span><h3>Komfortowe miejsca na przerwy</h3><p>Wygodne strefy relaksu dla każdego!</p></article>
-    <article class="card" id="cel5"><span class="emoji">❤️</span><h3>Kiermasze charytatywne</h3><p>Razem możemy pomagać innym i wspierać potrzebujących.</p></article>
-    <article class="card" id="cel6"><span class="emoji">💡</span><h3>Skrzynka pomysłów</h3><p>Uczniowie mogą zgłaszać własne propozycje zmian w szkole.</p></article>
-    <article class="card" id="cel7"><span class="emoji">🏆</span><h3>Konkursy na najładniejszą klasę</h3><p>Motywacja do dbania o szkolne sale.</p></article>
-    <article class="card" id="cel8"><span class="emoji">🎉</span><h3>Dzień integracji</h3><p>Wspólne zabawy nauczycieli i uczniów, budujące dobre relacje.</p></article>
-  </div>
+<h2>Nasze 8 postulatów</h2>
+<p class="subtitle">Osiem dróg, które mogą prowadzić do lepszej szkoły.</p>
+<div class="goals-grid">
+<article class="card" id="cel1"><span class="emoji">🍀</span><h3>Szczęśliwe numerki</h3><p>Więcej radości i pozytywnej energii.</p></article>
+<article class="card" id="cel2"><span class="emoji">📻</span><h3>Radiowęzeł</h3><p>Zawsze na bieżąco z ważnymi informacjami.</p></article>
+<article class="card" id="cel3"><span class="emoji">🤝</span><h3>Pomoc dyżurującym nauczycielom</h3><p>Większe wsparcie i lepsza organizacja.</p></article>
+<article class="card" id="cel4"><span class="emoji">🛋️</span><h3>Komfortowe miejsca na przerwy</h3><p>Wygodne strefy relaksu dla każdego!</p></article>
+<article class="card" id="cel5"><span class="emoji">❤️</span><h3>Kiermasze charytatywne</h3><p>Razem możemy pomagać innym i wspierać potrzebujących.</p></article>
+<article class="card" id="cel6"><span class="emoji">💡</span><h3>Skrzynka pomysłów</h3><p>Uczniowie mogą zgłaszać własne propozycje zmian w szkole.</p></article>
+<article class="card" id="cel7"><span class="emoji">🏆</span><h3>Konkursy na najładniejszą klasę</h3><p>Motywacja do dbania o szkolne sale.</p></article>
+<article class="card" id="cel8"><span class="emoji">🎉</span><h3>Dzień integracji</h3><p>Wspólne zabawy nauczycieli i uczniów, budujące dobre relacje.</p></article>
+</div>
 </section>
 
 <section class="container reveal">
-  <h2>Wybierz swoją drogę</h2>
-  <p class="subtitle">Kliknij drogowskaz i przejdź do wybranego postulatu.</p>
-  <div class="road-signs">
-    <a class="sign" href="#cel1"><span>🍀</span>Droga radości</a>
-    <a class="sign" href="#cel2"><span>📻</span>Droga informacji</a>
-    <a class="sign" href="#cel3"><span>🤝</span>Droga współpracy</a>
-    <a class="sign" href="#cel4"><span>🛋️</span>Droga komfortu</a>
-    <a class="sign" href="#cel5"><span>❤️</span>Droga pomocy</a>
-    <a class="sign" href="#cel6"><span>💡</span>Droga pomysłów</a>
-    <a class="sign" href="#cel7"><span>🏆</span>Droga sukcesu</a>
-    <a class="sign" href="#cel8"><span>🎉</span>Droga integracji</a>
-  </div>
+<h2>Wybierz swoją drogę</h2>
+<p class="subtitle">Kliknij drogowskaz i przejdź do wybranego postulatu.</p>
+<div class="road-signs">
+<a class="sign" href="#cel1"><span>🍀</span>Droga radości</a>
+<a class="sign" href="#cel2"><span>📻</span>Droga informacji</a>
+<a class="sign" href="#cel3"><span>🤝</span>Droga współpracy</a>
+<a class="sign" href="#cel4"><span>🛋️</span>Droga komfortu</a>
+<a class="sign" href="#cel5"><span>❤️</span>Droga pomocy</a>
+<a class="sign" href="#cel6"><span>💡</span>Droga pomysłów</a>
+<a class="sign" href="#cel7"><span>🏆</span>Droga sukcesu</a>
+<a class="sign" href="#cel8"><span>🎉</span>Droga integracji</a>
+</div>
 </section>
 
 <section id="ideas" class="container reveal">
-  <h2>Skrzynka pomysłów</h2>
-  <p class="subtitle">Masz pomysł na lepszą szkołę? Podziel się nim z nami! Nie musisz podawać swojego imienia.</p>
-  <div class="form-card">
-    <form id="ideaForm">
-      <label for="ideaName">Imię (opcjonalnie)</label>
-      <input id="ideaName" maxlength="60" placeholder="Możesz pozostać anonimowy">
-      <label for="ideaText">Twój pomysł</label>
-      <textarea id="ideaText" maxlength="2000" required placeholder="Napisz, co warto zmienić..."></textarea>
-      <button class="btn" type="submit">Wyślij pomysł</button>
-      <p class="status" id="ideaStatus" aria-live="polite"></p>
-    </form>
-  </div>
+<h2>Skrzynka pomysłów</h2>
+<p class="subtitle">Masz pomysł na lepszą szkołę? Podziel się nim z nami! Nie musisz podawać swojego imienia.</p>
+<div class="form-card">
+<form id="ideaForm">
+<label for="ideaName">Imię (opcjonalnie)</label>
+<input id="ideaName" maxlength="60" placeholder="Możesz pozostać anonimowy">
+<label for="ideaText">Twój pomysł</label>
+<textarea id="ideaText" maxlength="2000" required placeholder="Napisz, co warto zmienić..."></textarea>
+<button class="btn" type="submit">Wyślij pomysł</button>
+<p class="status" id="ideaStatus" aria-live="polite"></p>
+</form>
+</div>
 </section>
 
 <section id="opinions" class="container reveal">
-  <h2>Opinie uczniów i nauczycieli</h2>
-  <p class="subtitle">Podziel się opinią o projekcie 8Dróg. Nie wpisuj danych prywatnych.</p>
-  <div class="form-card" style="margin-bottom:25px">
-    <form id="opinionForm">
-      <label for="opinionName">Podpis (opcjonalnie)</label>
-      <input id="opinionName" maxlength="60" placeholder="Np. Uczeń">
-      <label for="opinionRole">Jestem</label>
-      <select id="opinionRole">
-        <option>Uczeń</option>
-        <option>Nauczyciel</option>
-        <option>Inna osoba</option>
-      </select>
-      <label for="opinionText">Moja opinia</label>
-      <textarea id="opinionText" maxlength="1000" required placeholder="Co sądzisz o naszych pomysłach?"></textarea>
-      <button class="btn" type="submit">Wyślij opinię</button>
-      <p class="status" id="opinionStatus" aria-live="polite"></p>
-    </form>
-  </div>
-  <div class="opinion-list" id="opinionList">
-    <div class="opinion"><p>Opinie pojawią się tutaj po zatwierdzeniu przez administratora.</p></div>
-  </div>
+<h2>Opinie uczniów i nauczycieli</h2>
+<p class="subtitle">Podziel się opinią o projekcie 8Dróg. Nie wpisuj danych prywatnych.</p>
+<div class="form-card" style="margin-bottom:25px">
+<form id="opinionForm">
+<label for="opinionName">Podpis (opcjonalnie)</label>
+<input id="opinionName" maxlength="60" placeholder="Np. Uczeń">
+<label for="opinionRole">Jestem</label>
+<select id="opinionRole"><option>Uczeń</option><option>Nauczyciel</option><option>Inna osoba</option></select>
+<label for="opinionText">Moja opinia</label>
+<textarea id="opinionText" maxlength="1000" required placeholder="Co sądzisz o naszych pomysłach?"></textarea>
+<button class="btn" type="submit">Wyślij opinię</button>
+<p class="status" id="opinionStatus" aria-live="polite"></p>
+</form>
+</div>
+<div class="opinion-list" id="opinionList">
+<div class="opinion"><p>Opinie pojawią się tutaj po zatwierdzeniu przez administratora.</p></div>
+</div>
 </section>
 
 <section id="teachers" class="container reveal">
-  <h2>Strefa nauczyciela</h2>
-  <p class="subtitle">Miejsce poświęcone współpracy uczniów i nauczycieli.</p>
-  <div class="teacher-box">
-    <h3>🤝 Razem możemy więcej!</h3>
-    <p>Chcemy, aby uczniowie i nauczyciele wspólnie tworzyli przyjazną, otwartą szkołę.</p>
-    <ul>
-      <li>Możliwość zgłaszania propozycji działań.</li>
-      <li>Współpraca przy organizacji wydarzeń.</li>
-      <li>Pomysły na poprawę atmosfery w szkole.</li>
-      <li>Wspólne inicjatywy uczniów i nauczycieli.</li>
-    </ul>
-    <a href="#ideas" class="btn">Zgłoś propozycję</a>
-  </div>
+<h2>Strefa nauczyciela</h2>
+<p class="subtitle">Miejsce poświęcone współpracy uczniów i nauczycieli.</p>
+<div class="teacher-box">
+<h3>🤝 Razem możemy więcej!</h3>
+<p>Chcemy, aby uczniowie i nauczyciele wspólnie tworzyli przyjazną, otwartą szkołę.</p>
+<ul>
+<li>Możliwość zgłaszania propozycji działań.</li>
+<li>Współpraca przy organizacji wydarzeń.</li>
+<li>Pomysły na poprawę atmosfery w szkole.</li>
+<li>Wspólne inicjatywy uczniów i nauczycieli.</li>
+</ul>
+<a href="#ideas" class="btn">Zgłoś propozycję</a>
+</div>
 </section>
 
 <section class="container reveal">
-  <h2>Nasza strona w liczbach</h2>
-  <p class="subtitle">Sprawdzamy, ile razy odwiedzono stronę.</p>
-  <div class="stat">
-    <strong id="visitCount">...</strong>
-    <span>odwiedzin strony</span>
-  </div>
+<h2>Nasza strona w liczbach</h2>
+<p class="subtitle">Sprawdzamy, ile razy odwiedzono stronę.</p>
+<div class="stat"><strong id="visitCount">...</strong><span>odwiedzin strony</span></div>
 </section>
 
 <section id="admin" class="container reveal">
-  <h2>Panel administratora</h2>
-  <p class="subtitle">Miejsce do przeglądania zgłoszonych pomysłów i opinii.</p>
-  <div class="form-card">
-    <div id="loginBox">
-      <h3>🔐 Logowanie administratora</h3>
-      <label for="adminPassword">Hasło administratora</label>
-      <input type="password" id="adminPassword" placeholder="Wpisz hasło" autocomplete="current-password">
-      <button class="btn" onclick="adminLogin()">Zaloguj się</button>
-      <p class="status" id="loginStatus" aria-live="polite"></p>
-    </div>
-    <div id="adminPanel" class="hidden">
-      <h3>Witaj w panelu administratora!</h3>
-      <button class="btn" onclick="loadAdminData()">Odśwież zgłoszenia</button>
-      <button class="small-btn secondary" onclick="adminLogout()">Wyloguj</button>
-      <div class="admin-columns">
-        <div class="admin-card">
-          <h3>💡 Zgłoszone pomysły</h3>
-          <div id="adminIdeas">Ładowanie...</div>
-        </div>
-        <div class="admin-card">
-          <h3>💬 Opinie do zatwierdzenia</h3>
-          <div id="adminOpinions">Ładowanie...</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<h2>Panel administratora</h2>
+<p class="subtitle">Miejsce do przeglądania zgłoszonych pomysłów i opinii.</p>
+<div class="form-card">
+<div id="loginBox">
+<h3>🔐 Logowanie administratora</h3>
+<label for="adminPassword">Hasło administratora</label>
+<input type="password" id="adminPassword" placeholder="Wpisz hasło" autocomplete="current-password">
+<button class="btn" onclick="adminLogin()">Zaloguj się</button>
+<p class="status" id="loginStatus" aria-live="polite"></p>
+</div>
+<div id="adminPanel" class="hidden">
+<h3>Witaj w panelu administratora!</h3>
+<button class="btn" onclick="loadAdminData()">Odśwież zgłoszenia</button>
+<button class="small-btn secondary" onclick="adminLogout()">Wyloguj</button>
+<div class="admin-columns">
+<div class="admin-card"><h3>💡 Zgłoszone pomysły</h3><div id="adminIdeas">Ładowanie...</div></div>
+<div class="admin-card"><h3>💬 Opinie do zatwierdzenia</h3><div id="adminOpinions">Ładowanie...</div></div>
+</div>
+</div>
+</div>
 </section>
 </main>
 
 <footer>
-  <p><strong>8Dróg do przyszłości</strong></p>
-  <p>Osiem pomysłów. Jeden wspólny cel.</p>
-  <p>Razem tworzymy lepszą szkołę! 💙</p>
+<p><strong>8Dróg do przyszłości</strong></p>
+<p>Osiem pomysłów. Jeden wspólny cel.</p>
+<p>Razem tworzymy lepszą szkołę! 💙</p>
 </footer>
 
 <button id="topButton" aria-label="Wróć na górę" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
+<!-- LATAJĄCY KOLIBER -->
+<div id="flyingHummingbird" aria-hidden="true">
+<svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="flyingBirdBlue" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stop-color="#64c5ff"/>
+<stop offset="100%" stop-color="#0755bd"/>
+</linearGradient>
+</defs>
+<path d="M83 43 L119 34 L86 50Z" fill="#123e70"/>
+<path d="M34 55 L5 77 L39 64 L17 91 L49 67Z" fill="#1674d1"/>
+<path d="M35 43 C47 20 79 25 88 43 C96 60 74 73 53 68 C39 65 28 55 35 43Z" fill="url(#flyingBirdBlue)"/>
+<path class="hummingbird-wing" d="M53 43 C35 12 49 -2 69 13 C82 23 75 37 62 48Z" fill="#75caff" stroke="#1565c0" stroke-width="2"/>
+<circle cx="77" cy="39" r="3" fill="#102f55"/>
+<circle cx="78" cy="38" r="1" fill="white"/>
+</svg>
+</div>
+
 <script>
-const SUPABASE_URL = "https://cvtoldutzctvpxijfsbb.supabase.co";
-const SUPABASE_KEY = "sb_publishable_HYeGXb6W_rufl2rLsaaMPA_3MgwJ4T-";
-const ADMIN_EMAIL = "legofan2700@gmail.com";
+const SUPABASE_URL="https://cvtoldutzctvpxijfsbb.supabase.co";
+const SUPABASE_KEY="sb_publishable_HYeGXb6W_rufl2rLsaaMPA_3MgwJ4T-";
+const ADMIN_EMAIL="legofan2700@gmail.com";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-function closeWelcome() {
-  document.getElementById("welcome").classList.add("hidden");
-  sessionStorage.setItem("welcomeSeen", "yes");
+function closeWelcome(){
+document.getElementById("welcome").classList.add("hidden");
+sessionStorage.setItem("welcomeSeen","yes");
 }
-if (sessionStorage.getItem("welcomeSeen") === "yes") {
-  document.getElementById("welcome").classList.add("hidden");
-}
-
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-  const dark = document.body.classList.contains("dark");
-  localStorage.setItem("8drogaTheme", dark ? "dark" : "light");
-  document.getElementById("themeButton").textContent = dark ? "☀️" : "🌙";
-}
-if (localStorage.getItem("8drogaTheme") === "dark") {
-  document.body.classList.add("dark");
-  document.getElementById("themeButton").textContent = "☀️";
+if(sessionStorage.getItem("welcomeSeen")==="yes"){
+document.getElementById("welcome").classList.add("hidden");
 }
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    }
-  });
+function toggleTheme(){
+document.body.classList.toggle("dark");
+const dark=document.body.classList.contains("dark");
+localStorage.setItem("8drogaTheme",dark?"dark":"light");
+document.getElementById("themeButton").textContent=dark?"☀️":"🌙";
+}
+if(localStorage.getItem("8drogaTheme")==="dark"){
+document.body.classList.add("dark");
+document.getElementById("themeButton").textContent="☀️";
+}
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+observer.unobserve(entry.target);
+}
+});
 },{threshold:.12});
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
-window.addEventListener("scroll", () => {
-  document.getElementById("topButton").classList.toggle("show",window.scrollY > 500);
+window.addEventListener("scroll",()=>{
+document.getElementById("topButton").classList.toggle("show",window.scrollY>500);
 });
 
-async function countVisit() {
-  const {data,error} = await db.rpc("increment_page_visits");
-  if (!error && data !== null) {
-    document.getElementById("visitCount").textContent = Number(data).toLocaleString("pl-PL");
-  } else {
-    document.getElementById("visitCount").textContent = "—";
-    console.error(error);
-  }
+async function countVisit(){
+const {data,error}=await db.rpc("increment_page_visits");
+if(!error&&data!==null){
+document.getElementById("visitCount").textContent=Number(data).toLocaleString("pl-PL");
+}else{
+document.getElementById("visitCount").textContent="—";
+console.error(error);
+}
 }
 countVisit();
 
-document.getElementById("ideaForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const status = document.getElementById("ideaStatus");
-  const imie = document.getElementById("ideaName").value.trim() || "Anonim";
-  const tresc = document.getElementById("ideaText").value.trim();
-  if (!tresc) return;
-  status.textContent = "Wysyłanie...";
-  const {error} = await db.from("pomysly").insert([{imie,tresc}]);
-  if (error) {
-    status.textContent = "Nie udało się wysłać. Spróbuj ponownie.";
-    console.error(error);
-  } else {
-    status.textContent = "Dziękujemy! Twój pomysł został wysłany. 💙";
-    e.target.reset();
-  }
-});
-
-document.getElementById("opinionForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const status = document.getElementById("opinionStatus");
-  const podpis = document.getElementById("opinionName").value.trim() || "Anonim";
-  const rola = document.getElementById("opinionRole").value;
-  const tresc = document.getElementById("opinionText").value.trim();
-  if (!tresc) return;
-  status.textContent = "Wysyłanie...";
-  const {error} = await db.from("opinie").insert([{podpis,rola,tresc}]);
-  if (error) {
-    status.textContent = "Nie udało się wysłać opinii. Spróbuj ponownie.";
-    console.error(error);
-  } else {
-    status.textContent = "Dziękujemy! Opinia czeka na zatwierdzenie. 💙";
-    e.target.reset();
-  }
-});
-
-async function loadPublicOpinions() {
-  const {data,error} = await db.from("opinie")
-    .select("podpis,rola,tresc,created_at")
-    .eq("zatwierdzona",true)
-    .order("created_at",{ascending:false})
-    .limit(6);
-  const box = document.getElementById("opinionList");
-  if (error) {
-    box.innerHTML = '<div class="opinion"><p>Nie udało się wczytać opinii.</p></div>';
-    console.error(error);
-    return;
-  }
-  if (!data.length) {
-    box.innerHTML = '<div class="opinion"><p>Nie ma jeszcze opublikowanych opinii. Możesz dodać pierwszą!</p></div>';
-    return;
-  }
-  box.innerHTML = data.map(o => `
-    <article class="opinion">
-      <small>${escapeHTML(o.rola)} · ${escapeHTML(o.podpis)}</small>
-      <p>${escapeHTML(o.tresc)}</p>
-    </article>
-  `).join("");
+document.getElementById("ideaForm").addEventListener("submit",async e=>{
+e.preventDefault();
+const status=document.getElementById("ideaStatus");
+const imie=document.getElementById("ideaName").value.trim()||"Anonim";
+const tresc=document.getElementById("ideaText").value.trim();
+if(!tresc)return;
+status.textContent="Wysyłanie...";
+const {error}=await db.from("pomysly").insert([{imie,tresc}]);
+if(error){
+status.textContent="Nie udało się wysłać. Spróbuj ponownie.";
+console.error(error);
+}else{
+status.textContent="Dziękujemy! Twój pomysł został wysłany. 💙";
+e.target.reset();
 }
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
+});
+
+document.getElementById("opinionForm").addEventListener("submit",async e=>{
+e.preventDefault();
+const status=document.getElementById("opinionStatus");
+const podpis=document.getElementById("opinionName").value.trim()||"Anonim";
+const rola=document.getElementById("opinionRole").value;
+const tresc=document.getElementById("opinionText").value.trim();
+if(!tresc)return;
+status.textContent="Wysyłanie...";
+const {error}=await db.from("opinie").insert([{podpis,rola,tresc}]);
+if(error){
+status.textContent="Nie udało się wysłać opinii. Spróbuj ponownie.";
+console.error(error);
+}else{
+status.textContent="Dziękujemy! Opinia czeka na zatwierdzenie. 💙";
+e.target.reset();
+}
+});
+
+async function loadPublicOpinions(){
+const {data,error}=await db.from("opinie").select("podpis,rola,tresc,created_at").eq("zatwierdzona",true).order("created_at",{ascending:false}).limit(6);
+const box=document.getElementById("opinionList");
+if(error){
+box.innerHTML='<div class="opinion"><p>Nie udało się wczytać opinii.</p></div>';
+console.error(error);
+return;
+}
+if(!data.length){
+box.innerHTML='<div class="opinion"><p>Nie ma jeszcze opublikowanych opinii. Możesz dodać pierwszą!</p></div>';
+return;
+}
+box.innerHTML=data.map(o=>`
+<article class="opinion">
+<small>${escapeHTML(o.rola)} · ${escapeHTML(o.podpis)}</small>
+<p>${escapeHTML(o.tresc)}</p>
+</article>`).join("");
+}
+
+function escapeHTML(value){
+return String(value??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
 }
 loadPublicOpinions();
 
-async function adminLogin() {
-  const password = document.getElementById("adminPassword").value;
-  const status = document.getElementById("loginStatus");
-  if (!password) {
-    status.textContent = "Wpisz hasło.";
-    return;
-  }
-  status.textContent = "Logowanie...";
-  const {data,error} = await db.auth.signInWithPassword({
-    email:ADMIN_EMAIL,
-    password:password
-  });
-  if (error || !data.user || data.user.email !== ADMIN_EMAIL) {
-    status.textContent = "Nieprawidłowe hasło lub brak dostępu.";
-    if (data.user) await db.auth.signOut();
-    return;
-  }
-  showAdmin();
+async function adminLogin(){
+const password=document.getElementById("adminPassword").value;
+const status=document.getElementById("loginStatus");
+if(!password){status.textContent="Wpisz hasło.";return;}
+status.textContent="Logowanie...";
+const {data,error}=await db.auth.signInWithPassword({email:ADMIN_EMAIL,password:password});
+if(error||!data.user||data.user.email!==ADMIN_EMAIL){
+status.textContent="Nieprawidłowe hasło lub brak dostępu.";
+if(data.user)await db.auth.signOut();
+return;
+}
+showAdmin();
 }
 
-async function showAdmin() {
-  document.getElementById("loginBox").classList.add("hidden");
-  document.getElementById("adminPanel").classList.remove("hidden");
-  await loadAdminData();
+async function showAdmin(){
+document.getElementById("loginBox").classList.add("hidden");
+document.getElementById("adminPanel").classList.remove("hidden");
+await loadAdminData();
 }
 
-async function adminLogout() {
-  await db.auth.signOut();
-  document.getElementById("adminPanel").classList.add("hidden");
-  document.getElementById("loginBox").classList.remove("hidden");
-  document.getElementById("adminPassword").value = "";
-  document.getElementById("loginStatus").textContent = "Wylogowano.";
+async function adminLogout(){
+await db.auth.signOut();
+document.getElementById("adminPanel").classList.add("hidden");
+document.getElementById("loginBox").classList.remove("hidden");
+document.getElementById("adminPassword").value="";
+document.getElementById("loginStatus").textContent="Wylogowano.";
 }
 
-async function loadAdminData() {
-  const {data:userData} = await db.auth.getUser();
-  if (!userData.user || userData.user.email !== ADMIN_EMAIL) return;
+async function loadAdminData(){
+const {data:userData}=await db.auth.getUser();
+if(!userData.user||userData.user.email!==ADMIN_EMAIL)return;
 
-  const ideasBox = document.getElementById("adminIdeas");
-  const opinionsBox = document.getElementById("adminOpinions");
-  ideasBox.textContent = "Ładowanie...";
-  opinionsBox.textContent = "Ładowanie...";
+const ideasBox=document.getElementById("adminIdeas");
+const opinionsBox=document.getElementById("adminOpinions");
+ideasBox.textContent="Ładowanie...";
+opinionsBox.textContent="Ładowanie...";
 
-  const {data:ideas,error:ideasError} = await db.from("pomysly")
-    .select("*").order("created_at",{ascending:false});
-  if (ideasError) {
-    ideasBox.textContent = "Nie udało się pobrać pomysłów.";
-  } else if (!ideas.length) {
-    ideasBox.textContent = "Nie ma jeszcze zgłoszeń.";
-  } else {
-    ideasBox.innerHTML = ideas.map(p => `
-      <div class="idea-item">
-        <strong>${escapeHTML(p.imie || "Anonim")}</strong>
-        <p>${escapeHTML(p.tresc)}</p>
-        <button class="small-btn" onclick="deleteIdea(${Number(p.id)})">Usuń</button>
-      </div>
-    `).join("");
-  }
-
-  const {data:opinions,error:opinionsError} = await db.from("opinie")
-    .select("*").order("created_at",{ascending:false});
-  if (opinionsError) {
-    opinionsBox.textContent = "Nie udało się pobrać opinii.";
-  } else if (!opinions.length) {
-    opinionsBox.textContent = "Nie ma jeszcze opinii.";
-  } else {
-    opinionsBox.innerHTML = opinions.map(o => `
-      <div class="idea-item">
-        <strong>${escapeHTML(o.podpis)} · ${escapeHTML(o.rola)}</strong>
-        <p>${escapeHTML(o.tresc)}</p>
-        <p>Status: ${o.zatwierdzona ? "Opublikowana" : "Oczekuje"}</p>
-        ${o.zatwierdzona ? "" : `<button class="small-btn" onclick="approveOpinion('${o.id}')">Zatwierdź</button>`}
-        <button class="small-btn secondary" onclick="deleteOpinion('${o.id}')">Usuń</button>
-      </div>
-    `).join("");
-  }
+const {data:ideas,error:ideasError}=await db.from("pomysly").select("*").order("created_at",{ascending:false});
+if(ideasError){
+ideasBox.textContent="Nie udało się pobrać pomysłów.";
+}else if(!ideas.length){
+ideasBox.textContent="Nie ma jeszcze zgłoszeń.";
+}else{
+ideasBox.innerHTML=ideas.map(p=>`
+<div class="idea-item">
+<strong>${escapeHTML(p.imie||"Anonim")}</strong>
+<p>${escapeHTML(p.tresc)}</p>
+<button class="small-btn" onclick="deleteIdea(${Number(p.id)})">Usuń</button>
+</div>`).join("");
 }
 
-async function deleteIdea(id) {
-  if (!confirm("Czy na pewno usunąć ten pomysł?")) return;
-  const {error} = await db.from("pomysly").delete().eq("id",id);
-  if (error) alert("Nie udało się usunąć pomysłu.");
-  else await loadAdminData();
+const {data:opinions,error:opinionsError}=await db.from("opinie").select("*").order("created_at",{ascending:false});
+if(opinionsError){
+opinionsBox.textContent="Nie udało się pobrać opinii.";
+}else if(!opinions.length){
+opinionsBox.textContent="Nie ma jeszcze opinii.";
+}else{
+opinionsBox.innerHTML=opinions.map(o=>`
+<div class="idea-item">
+<strong>${escapeHTML(o.podpis)} · ${escapeHTML(o.rola)}</strong>
+<p>${escapeHTML(o.tresc)}</p>
+<p>Status: ${o.zatwierdzona?"Opublikowana":"Oczekuje"}</p>
+${o.zatwierdzona?"":`<button class="small-btn" onclick="approveOpinion('${o.id}')">Zatwierdź</button>`}
+<button class="small-btn secondary" onclick="deleteOpinion('${o.id}')">Usuń</button>
+</div>`).join("");
 }
-async function approveOpinion(id) {
-  const {error} = await db.from("opinie").update({zatwierdzona:true}).eq("id",id);
-  if (error) alert("Nie udało się zatwierdzić opinii.");
-  else {
-    await loadAdminData();
-    await loadPublicOpinions();
-  }
-}
-async function deleteOpinion(id) {
-  if (!confirm("Czy na pewno usunąć tę opinię?")) return;
-  const {error} = await db.from("opinie").delete().eq("id",id);
-  if (error) alert("Nie udało się usunąć opinii.");
-  else {
-    await loadAdminData();
-    await loadPublicOpinions();
-  }
 }
 
-db.auth.getSession().then(({data}) => {
-  if (data.session && data.session.user.email === ADMIN_EMAIL) showAdmin();
+async function deleteIdea(id){
+if(!confirm("Czy na pewno usunąć ten pomysł?"))return;
+const {error}=await db.from("pomysly").delete().eq("id",id);
+if(error)alert("Nie udało się usunąć pomysłu.");
+else await loadAdminData();
+}
+
+async function approveOpinion(id){
+const {error}=await db.from("opinie").update({zatwierdzona:true}).eq("id",id);
+if(error)alert("Nie udało się zatwierdzić opinii.");
+else{
+await loadAdminData();
+await loadPublicOpinions();
+}
+}
+
+async function deleteOpinion(id){
+if(!confirm("Czy na pewno usunąć tę opinię?"))return;
+const {error}=await db.from("opinie").delete().eq("id",id);
+if(error)alert("Nie udało się usunąć opinii.");
+else{
+await loadAdminData();
+await loadPublicOpinions();
+}
+}
+
+db.auth.getSession().then(({data})=>{
+if(data.session&&data.session.user.email===ADMIN_EMAIL)showAdmin();
 });
 </script>
-  <style>
-#flyingHummingbird {
-  position:fixed;
-  top:25%;
-  left:-100px;
-  width:65px;
-  height:55px;
-  z-index:15;
-  pointer-events:none;
-  animation:
-    hummingbirdFlight 24s linear infinite,
-    hummingbirdHover 1.2s ease-in-out infinite;
-}
-
-#flyingHummingbird svg {
-  width:100%;
-  height:100%;
-  overflow:visible;
-  filter:drop-shadow(0 3px 5px rgba(21,101,192,.25));
-}
-
-.hummingbird-wing {
-  transform-box:fill-box;
-  transform-origin:center;
-  animation:wingFlap .13s ease-in-out infinite alternate;
-}
-
-@keyframes hummingbirdFlight {
-  0%   {left:-100px;top:20%;transform:scaleX(1)}
-  24%  {left:35%;top:35%;transform:scaleX(1)}
-  25%  {left:36%;top:35%;transform:scaleX(-1)}
-  49%  {left:calc(100% + 100px);top:18%;transform:scaleX(-1)}
-  50%  {left:calc(100% + 100px);top:65%;transform:scaleX(1)}
-  74%  {left:40%;top:72%;transform:scaleX(1)}
-  75%  {left:39%;top:72%;transform:scaleX(-1)}
-  99%  {left:-100px;top:40%;transform:scaleX(-1)}
-  100% {left:-100px;top:20%;transform:scaleX(1)}
-}
-
-@keyframes hummingbirdHover {
-  0%,100% {margin-top:0}
-  50% {margin-top:-10px}
-}
-
-@keyframes wingFlap {
-  from {transform:rotate(-35deg)}
-  to {transform:rotate(35deg)}
-}
-
-@media(prefers-reduced-motion:reduce) {
-  #flyingHummingbird {display:none}
-}
-</style>
-
-<div id="flyingHummingbird" aria-hidden="true">
-  <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="birdBlue" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#64c5ff"/>
-        <stop offset="100%" stop-color="#0755bd"/>
-      </linearGradient>
-    </defs>
-
-    <!-- Dziób -->
-    <path d="M83 43 L119 34 L86 50Z" fill="#123e70"/>
-
-    <!-- Ogon -->
-    <path d="M34 55 L5 77 L39 64 L17 91 L49 67Z"
-          fill="#1674d1"/>
-
-    <!-- Tułów -->
-    <path d="M35 43
-             C47 20 79 25 88 43
-             C96 60 74 73 53 68
-             C39 65 28 55 35 43Z"
-          fill="url(#birdBlue)"/>
-
-    <!-- Skrzydło -->
-    <path class="hummingbird-wing"
-          d="M53 43
-             C35 12 49 -2 69 13
-             C82 23 75 37 62 48Z"
-          fill="#75caff"
-          stroke="#1565c0"
-          stroke-width="2"/>
-
-    <!-- Oko -->
-    <circle cx="77" cy="39" r="3" fill="#102f55"/>
-    <circle cx="78" cy="38" r="1" fill="white"/>
-  </svg>
-</div>
 </body>
 </html>
