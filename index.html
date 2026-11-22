@@ -583,5 +583,96 @@ db.auth.getSession().then(({data}) => {
   if (data.session && data.session.user.email === ADMIN_EMAIL) showAdmin();
 });
 </script>
+  <style>
+#flyingHummingbird {
+  position:fixed;
+  top:25%;
+  left:-100px;
+  width:65px;
+  height:55px;
+  z-index:15;
+  pointer-events:none;
+  animation:
+    hummingbirdFlight 24s linear infinite,
+    hummingbirdHover 1.2s ease-in-out infinite;
+}
+
+#flyingHummingbird svg {
+  width:100%;
+  height:100%;
+  overflow:visible;
+  filter:drop-shadow(0 3px 5px rgba(21,101,192,.25));
+}
+
+.hummingbird-wing {
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:wingFlap .13s ease-in-out infinite alternate;
+}
+
+@keyframes hummingbirdFlight {
+  0%   {left:-100px;top:20%;transform:scaleX(1)}
+  24%  {left:35%;top:35%;transform:scaleX(1)}
+  25%  {left:36%;top:35%;transform:scaleX(-1)}
+  49%  {left:calc(100% + 100px);top:18%;transform:scaleX(-1)}
+  50%  {left:calc(100% + 100px);top:65%;transform:scaleX(1)}
+  74%  {left:40%;top:72%;transform:scaleX(1)}
+  75%  {left:39%;top:72%;transform:scaleX(-1)}
+  99%  {left:-100px;top:40%;transform:scaleX(-1)}
+  100% {left:-100px;top:20%;transform:scaleX(1)}
+}
+
+@keyframes hummingbirdHover {
+  0%,100% {margin-top:0}
+  50% {margin-top:-10px}
+}
+
+@keyframes wingFlap {
+  from {transform:rotate(-35deg)}
+  to {transform:rotate(35deg)}
+}
+
+@media(prefers-reduced-motion:reduce) {
+  #flyingHummingbird {display:none}
+}
+</style>
+
+<div id="flyingHummingbird" aria-hidden="true">
+  <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="birdBlue" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#64c5ff"/>
+        <stop offset="100%" stop-color="#0755bd"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Dziób -->
+    <path d="M83 43 L119 34 L86 50Z" fill="#123e70"/>
+
+    <!-- Ogon -->
+    <path d="M34 55 L5 77 L39 64 L17 91 L49 67Z"
+          fill="#1674d1"/>
+
+    <!-- Tułów -->
+    <path d="M35 43
+             C47 20 79 25 88 43
+             C96 60 74 73 53 68
+             C39 65 28 55 35 43Z"
+          fill="url(#birdBlue)"/>
+
+    <!-- Skrzydło -->
+    <path class="hummingbird-wing"
+          d="M53 43
+             C35 12 49 -2 69 13
+             C82 23 75 37 62 48Z"
+          fill="#75caff"
+          stroke="#1565c0"
+          stroke-width="2"/>
+
+    <!-- Oko -->
+    <circle cx="77" cy="39" r="3" fill="#102f55"/>
+    <circle cx="78" cy="38" r="1" fill="white"/>
+  </svg>
+</div>
 </body>
 </html>
