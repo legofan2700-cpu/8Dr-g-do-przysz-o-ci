@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -90,10 +91,79 @@ display:block;margin-top:17px;color:var(--blue);
 font-size:13px;font-weight:bold
 }
 
-.road-signs{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
-.sign{display:block;text-align:center;padding:20px 12px;background:var(--card);border:2px solid var(--border);border-radius:15px;font-weight:bold;transition:.25s;box-shadow:var(--shadow)}
-.sign:hover{transform:translateY(-7px) rotate(-1deg);border-color:var(--blue);color:var(--blue)}
-.sign span{display:block;font-size:27px;margin-bottom:8px}
+/* DROGA ROZGAŁĘZIAJĄCA SIĘ NA 8 */
+.eight-roads{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:25px;
+padding:20px;
+box-shadow:var(--shadow);
+overflow:hidden
+}
+.eight-roads svg{
+display:block;
+width:100%;
+height:auto
+}
+.road-shoulder{
+fill:none;
+stroke:#aeb8c2;
+stroke-width:54;
+stroke-linecap:round;
+stroke-linejoin:round
+}
+.road-asphalt{
+fill:none;
+stroke:#414850;
+stroke-width:46;
+stroke-linecap:round;
+stroke-linejoin:round
+}
+.road-center{
+fill:none;
+stroke:#f8f8e9;
+stroke-width:3;
+stroke-dasharray:16 15;
+stroke-linecap:round
+}
+.road-point{
+fill:#fff;
+stroke:#1565c0;
+stroke-width:5;
+transition:.2s
+}
+.road-point-link:hover .road-point{
+fill:#bce5ff;
+stroke-width:8
+}
+.road-point-number{
+fill:#1565c0;
+font-size:21px;
+font-weight:bold;
+text-anchor:middle;
+pointer-events:none
+}
+.road-destinations{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin-top:15px
+}
+.road-destinations a{
+display:block;
+padding:15px 9px;
+text-align:center;
+background:var(--bg);
+border:1px solid var(--border);
+border-radius:14px;
+font-weight:bold;
+transition:.2s
+}
+.road-destinations a:hover{
+transform:translateY(-5px);
+border-color:var(--blue);
+color:var(--blue)
+}
 
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .form-card h3{margin-top:0}
@@ -188,20 +258,25 @@ animation:hummingbirdFlight 24s linear infinite,hummingbirdHover 1.2s ease-in-ou
 @keyframes wingFlap{from{transform:rotate(-35deg)}to{transform:rotate(35deg)}}
 
 @media(max-width:850px){
-.goals-grid,.road-signs{grid-template-columns:repeat(2,1fr)}
+.goals-grid{grid-template-columns:repeat(2,1fr)}
 nav{gap:10px}
 .nav{padding:12px 0;flex-wrap:wrap}
 .opinion-list{grid-template-columns:1fr 1fr}
+.road-destinations{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:600px){
 nav{width:100%;justify-content:center}
 nav a{font-size:12px}
 .nav-actions{margin:auto}
 .stats{grid-template-columns:1fr;margin-top:15px}
-.goals-grid,.road-signs,.form-grid,.admin-columns,.opinion-list{grid-template-columns:1fr}
+.goals-grid,.form-grid,.admin-columns,.opinion-list{grid-template-columns:1fr}
 .hero{min-height:500px}
 section{padding:55px 0}
 .postulate-content{padding:24px}
+.eight-roads{padding:8px}
+.road-shoulder{stroke-width:48}
+.road-asphalt{stroke-width:40}
+.road-destinations{grid-template-columns:repeat(2,1fr)}
 }
 @media(prefers-reduced-motion:reduce){
 *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
@@ -349,18 +424,116 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 </div>
 </section>
 
+<!-- NOWA DROGA Z OŚMIOMA ODNOGAMI -->
 <section class="container reveal">
 <h2>Wybierz swoją drogę</h2>
-<p class="subtitle">Kliknij drogowskaz i przejdź do wybranego postulatu.</p>
-<div class="road-signs">
-<a class="sign" href="#cel1"><span>🍀</span>Droga radości</a>
-<a class="sign" href="#cel2"><span>🌳</span>Droga zieleni</a>
-<a class="sign" href="#cel3"><span>🧺</span>Droga lekcji na dworze</a>
-<a class="sign" href="#cel4"><span>🛋️</span>Droga komfortu</a>
-<a class="sign" href="#cel5"><span>❤️</span>Droga pomocy</a>
-<a class="sign" href="#cel6"><span>💡</span>Droga pomysłów</a>
-<a class="sign" href="#cel7"><span>🧠</span>Droga wiedzy</a>
-<a class="sign" href="#cel8"><span>🎉</span>Droga integracji</a>
+<p class="subtitle">
+Jedna wspólna droga rozchodzi się na osiem kierunków.
+Kliknij punkt na drodze, aby przejść do wybranego postulatu.
+</p>
+
+<div class="eight-roads">
+<svg viewBox="0 0 1000 650"
+xmlns="http://www.w3.org/2000/svg"
+role="img"
+aria-label="Droga rozgałęziająca się na osiem dróg prowadzących do postulatów">
+
+<!-- Pobocza -->
+<g class="road-shoulder">
+<path d="M500 390 Q350 270 80 75"/>
+<path d="M500 390 Q390 220 220 35"/>
+<path d="M500 390 Q450 200 365 20"/>
+<path d="M500 390 Q485 190 490 15"/>
+<path d="M500 390 Q515 190 625 20"/>
+<path d="M500 390 Q570 220 780 35"/>
+<path d="M500 390 Q650 270 920 75"/>
+<path d="M500 390 Q720 350 970 300"/>
+</g>
+
+<!-- Asfalt -->
+<g class="road-asphalt">
+<path d="M500 390 Q350 270 80 75"/>
+<path d="M500 390 Q390 220 220 35"/>
+<path d="M500 390 Q450 200 365 20"/>
+<path d="M500 390 Q485 190 490 15"/>
+<path d="M500 390 Q515 190 625 20"/>
+<path d="M500 390 Q570 220 780 35"/>
+<path d="M500 390 Q650 270 920 75"/>
+<path d="M500 390 Q720 350 970 300"/>
+</g>
+
+<!-- Przerywane linie -->
+<g class="road-center">
+<path d="M500 390 Q350 270 80 75"/>
+<path d="M500 390 Q390 220 220 35"/>
+<path d="M500 390 Q450 200 365 20"/>
+<path d="M500 390 Q485 190 490 15"/>
+<path d="M500 390 Q515 190 625 20"/>
+<path d="M500 390 Q570 220 780 35"/>
+<path d="M500 390 Q650 270 920 75"/>
+<path d="M500 390 Q720 350 970 300"/>
+</g>
+
+<!-- Centralny punkt -->
+<circle cx="500" cy="390" r="42"
+fill="#1565c0" stroke="#fff" stroke-width="6"/>
+<text x="500" y="386" fill="white"
+font-size="17" font-weight="bold" text-anchor="middle">8</text>
+<text x="500" y="405" fill="white"
+font-size="10" text-anchor="middle">DRÓG</text>
+
+<!-- Punkty na końcach odnóg -->
+<a href="#cel1" class="road-point-link" aria-label="Postulat 1">
+<circle class="road-point" cx="80" cy="75" r="25"/>
+<text class="road-point-number" x="80" y="82">1</text>
+</a>
+
+<a href="#cel2" class="road-point-link" aria-label="Postulat 2">
+<circle class="road-point" cx="220" cy="35" r="25"/>
+<text class="road-point-number" x="220" y="42">2</text>
+</a>
+
+<a href="#cel3" class="road-point-link" aria-label="Postulat 3">
+<circle class="road-point" cx="365" cy="20" r="25"/>
+<text class="road-point-number" x="365" y="27">3</text>
+</a>
+
+<a href="#cel4" class="road-point-link" aria-label="Postulat 4">
+<circle class="road-point" cx="490" cy="15" r="25"/>
+<text class="road-point-number" x="490" y="22">4</text>
+</a>
+
+<a href="#cel5" class="road-point-link" aria-label="Postulat 5">
+<circle class="road-point" cx="625" cy="20" r="25"/>
+<text class="road-point-number" x="625" y="27">5</text>
+</a>
+
+<a href="#cel6" class="road-point-link" aria-label="Postulat 6">
+<circle class="road-point" cx="780" cy="35" r="25"/>
+<text class="road-point-number" x="780" y="42">6</text>
+</a>
+
+<a href="#cel7" class="road-point-link" aria-label="Postulat 7">
+<circle class="road-point" cx="920" cy="75" r="25"/>
+<text class="road-point-number" x="920" y="82">7</text>
+</a>
+
+<a href="#cel8" class="road-point-link" aria-label="Postulat 8">
+<circle class="road-point" cx="970" cy="300" r="25"/>
+<text class="road-point-number" x="970" y="307">8</text>
+</a>
+</svg>
+
+<div class="road-destinations">
+<a href="#cel1">🍀 1. Szczęśliwe numerki</a>
+<a href="#cel2">🌳 2. Renowacja terenu zielonego</a>
+<a href="#cel3">🧺 3. Kocyki dla klas</a>
+<a href="#cel4">🛋️ 4. Komfortowe miejsca</a>
+<a href="#cel5">❤️ 5. Kiermasze charytatywne</a>
+<a href="#cel6">💡 6. Skrzynka pomysłów</a>
+<a href="#cel7">🧠 7. Konkursy wiedzy</a>
+<a href="#cel8">🎉 8. Dzień integracji</a>
+</div>
 </div>
 </section>
 
