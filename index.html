@@ -78,7 +78,6 @@ body.dark .hero{background:linear-gradient(135deg,#142c48,#174c78,#1b304b);color
 .card h3{margin:0 0 10px;font-size:19px}
 .card p{color:var(--muted);line-height:1.6;font-size:14px;margin:0}
 
-/* KLIKALNE POSTULATY */
 .goal-card{
 cursor:pointer;text-align:left;color:var(--text);
 font-family:inherit;width:100%;border:1px solid var(--border);
@@ -86,7 +85,7 @@ min-height:190px
 }
 .goal-card:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
 .goal-card::after{
-content:"Kliknij, aby poznać szczegóły →";
+content:"✦ Kliknij, aby poznać szczegóły →";
 display:block;margin-top:17px;color:var(--blue);
 font-size:13px;font-weight:bold
 }
@@ -122,20 +121,31 @@ footer{padding:35px 15px;text-align:center;background:var(--card);border-top:1px
 @keyframes welcomeIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
 .hidden{display:none!important}
 
-/* OKNO POSTULATU */
 .postulate-modal{
 position:fixed;inset:0;z-index:200;background:#081e37dc;
 display:grid;place-items:center;padding:20px
 }
 .postulate-content{
+position:relative;
 background:var(--card);color:var(--text);padding:35px;
+border:2px solid var(--border);
 border-radius:22px;max-width:650px;width:100%;
 max-height:85vh;overflow-y:auto;box-shadow:var(--shadow)
 }
-.postulate-content h2{color:var(--blue)}
-.postulate-description{line-height:1.9;font-size:16px;margin:25px 0;white-space:pre-wrap}
+.postulate-content::before{
+content:"✦  ✧  ✦";
+display:block;text-align:center;color:var(--blue);
+font-size:22px;letter-spacing:10px;margin-bottom:18px
+}
+.postulate-content h2{color:var(--blue);font-size:clamp(23px,4vw,32px)}
+.postulate-description{
+line-height:1.9;font-size:16px;margin:25px 0;
+white-space:pre-wrap;background:var(--bg);
+border:1px solid var(--border);border-radius:16px;
+padding:22px;box-shadow:var(--shadow)
+}
+.postulate-content .btn{display:block;margin:20px auto 0}
 
-/* IKONA I KOALICJA */
 .coalition-box{
 display:flex;align-items:center;justify-content:center;
 gap:25px;flex-wrap:wrap;background:var(--card);
@@ -156,7 +166,6 @@ font-size:38px;background:var(--bg)
 .idea-item button{margin-top:8px}
 .admin-columns{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 
-/* LATAJĄCY KOLIBER */
 #flyingHummingbird{
 position:fixed;top:25%;left:-100px;width:65px;height:55px;
 z-index:15;pointer-events:none;
@@ -204,7 +213,6 @@ section{padding:55px 0}
 
 <body>
 
-<!-- KRÓLEWSKI KOLIBER -->
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
 <symbol id="kingHummingbird" viewBox="0 0 160 160">
 <defs>
@@ -243,7 +251,6 @@ section{padding:55px 0}
 </symbol>
 </svg>
 
-<!-- POWITANIE -->
 <div id="welcome">
 <div class="welcome-box">
 <div class="king-logo">
@@ -310,57 +317,38 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 </p>
 </section>
 
-<!-- POSTULATY -->
 <section id="goals" class="container reveal">
 <h2>Nasze 8 postulatów</h2>
 <p class="subtitle">Kliknij wybrany postulat, aby poznać jego szczegóły.</p>
 
 <div class="goals-grid">
-
 <button class="card goal-card" id="cel1" onclick="openPostulate(1)">
-<span class="emoji">🍀</span>
-<h3>Szczęśliwe numerki</h3>
+<span class="emoji">🍀</span><h3>Szczęśliwe numerki</h3>
 </button>
-
 <button class="card goal-card" id="cel2" onclick="openPostulate(2)">
-<span class="emoji">🌳</span>
-<h3>Renowacja terenu zielonego</h3>
+<span class="emoji">🌳</span><h3>Renowacja terenu zielonego</h3>
 </button>
-
 <button class="card goal-card" id="cel3" onclick="openPostulate(3)">
-<span class="emoji">🧺</span>
-<h3>Kocyki dla klas</h3>
+<span class="emoji">🧺</span><h3>Kocyki dla klas</h3>
 </button>
-
 <button class="card goal-card" id="cel4" onclick="openPostulate(4)">
-<span class="emoji">🛋️</span>
-<h3>Komfortowe miejsca na przerwy</h3>
+<span class="emoji">🛋️</span><h3>Komfortowe miejsca na przerwy</h3>
 </button>
-
 <button class="card goal-card" id="cel5" onclick="openPostulate(5)">
-<span class="emoji">❤️</span>
-<h3>Kiermasze charytatywne</h3>
+<span class="emoji">❤️</span><h3>Kiermasze charytatywne</h3>
 </button>
-
 <button class="card goal-card" id="cel6" onclick="openPostulate(6)">
-<span class="emoji">💡</span>
-<h3>Skrzynka pomysłów</h3>
+<span class="emoji">💡</span><h3>Skrzynka pomysłów</h3>
 </button>
-
 <button class="card goal-card" id="cel7" onclick="openPostulate(7)">
-<span class="emoji">🧠</span>
-<h3>Konkursy wiedzy ogólnej i tematycznej</h3>
+<span class="emoji">🧠</span><h3>Konkursy wiedzy ogólnej i tematycznej</h3>
 </button>
-
 <button class="card goal-card" id="cel8" onclick="openPostulate(8)">
-<span class="emoji">🎉</span>
-<h3>Dzień integracji</h3>
+<span class="emoji">🎉</span><h3>Dzień integracji</h3>
 </button>
-
 </div>
 </section>
 
-<!-- DROGOWSKAZY -->
 <section class="container reveal">
 <h2>Wybierz swoją drogę</h2>
 <p class="subtitle">Kliknij drogowskaz i przejdź do wybranego postulatu.</p>
@@ -376,7 +364,6 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 </div>
 </section>
 
-<!-- SKRZYNKA POMYSŁÓW -->
 <section id="ideas" class="container reveal">
 <h2>Skrzynka pomysłów</h2>
 <p class="subtitle">Masz pomysł na lepszą szkołę? Podziel się nim z nami! Nie musisz podawać swojego imienia.</p>
@@ -392,11 +379,9 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 </div>
 </section>
 
-<!-- IKONA I KOALICJA -->
 <section class="container reveal" id="coalition">
 <h2>Nasza ikona</h2>
 <p class="subtitle">Poznaj symbol 8Dróg do przyszłości.</p>
-
 <div class="icon-section">
 <div class="king-logo">
 <svg viewBox="0 0 160 160"><use href="#kingHummingbird"/></svg>
@@ -404,10 +389,8 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 <h3>Królewski Koliber</h3>
 <p class="subtitle">Symbol naszej inicjatywy.</p>
 </div>
-
 <h2>Nasza koalicja</h2>
 <p class="subtitle">Razem możemy osiągnąć jeszcze więcej!</p>
-
 <div class="coalition-box">
 <div>
 <div class="coalition-icon">❔</div>
@@ -420,20 +403,16 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 </div>
 </section>
 
-<!-- OPINIE -->
 <section id="opinions" class="container reveal">
 <h2>Opinie uczniów i nauczycieli</h2>
 <p class="subtitle">Podziel się opinią o projekcie 8Dróg. Nie wpisuj danych prywatnych.</p>
-
 <div class="form-card" style="margin-bottom:25px">
 <form id="opinionForm">
 <label for="opinionName">Podpis (opcjonalnie)</label>
 <input id="opinionName" maxlength="60" placeholder="Np. Uczeń">
 <label for="opinionRole">Jestem</label>
 <select id="opinionRole">
-<option>Uczeń</option>
-<option>Nauczyciel</option>
-<option>Inna osoba</option>
+<option>Uczeń</option><option>Nauczyciel</option><option>Inna osoba</option>
 </select>
 <label for="opinionText">Moja opinia</label>
 <textarea id="opinionText" maxlength="1000" required placeholder="Co sądzisz o naszych pomysłach?"></textarea>
@@ -441,13 +420,11 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 <p class="status" id="opinionStatus" aria-live="polite"></p>
 </form>
 </div>
-
 <div class="opinion-list" id="opinionList">
 <div class="opinion"><p>Opinie pojawią się tutaj po zatwierdzeniu przez administratora.</p></div>
 </div>
 </section>
 
-<!-- NAUCZYCIELE -->
 <section id="teachers" class="container reveal">
 <h2>Strefa nauczyciela</h2>
 <p class="subtitle">Miejsce poświęcone współpracy uczniów i nauczycieli.</p>
@@ -464,7 +441,6 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 </div>
 </section>
 
-<!-- LICZNIK -->
 <section class="container reveal">
 <h2>Nasza strona w liczbach</h2>
 <p class="subtitle">Sprawdzamy, ile razy odwiedzono stronę.</p>
@@ -474,11 +450,9 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 </div>
 </section>
 
-<!-- ADMINISTRATOR -->
 <section id="admin" class="container reveal">
 <h2>Panel administratora</h2>
 <p class="subtitle">Miejsce do przeglądania zgłoszonych pomysłów i opinii.</p>
-
 <div class="form-card">
 <div id="loginBox">
 <h3>🔐 Logowanie administratora</h3>
@@ -487,12 +461,10 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 <button class="btn" onclick="adminLogin()">Zaloguj się</button>
 <p class="status" id="loginStatus" aria-live="polite"></p>
 </div>
-
 <div id="adminPanel" class="hidden">
 <h3>Witaj w panelu administratora!</h3>
 <button class="btn" onclick="loadAdminData()">Odśwież zgłoszenia</button>
 <button class="small-btn secondary" onclick="adminLogout()">Wyloguj</button>
-
 <div class="admin-columns">
 <div class="admin-card">
 <h3>💡 Zgłoszone pomysły</h3>
@@ -506,29 +478,32 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 </div>
 </div>
 </section>
-
 </main>
 
 <footer>
 <p><strong>8Dróg do przyszłości</strong></p>
 <p>Osiem pomysłów. Jeden wspólny cel.</p>
 <p>Razem tworzymy lepszą szkołę! 💙</p>
+<div style="margin:25px auto 0;padding-top:20px;border-top:1px solid var(--border);max-width:750px">
+<p style="font-size:14px;font-weight:bold;color:var(--text)">
+Administratorem strony i danych jest Adam Stanisław Korytkowski.
+</p>
+<p style="font-size:13px">
+© 2026 8Dróg do przyszłości. Kopiowanie zabronione.
+</p>
+</div>
 </footer>
 
 <button id="topButton" aria-label="Wróć na górę" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<!-- OKNO SZCZEGÓŁÓW POSTULATÓW -->
 <div id="postulateModal" class="postulate-modal hidden" onclick="if(event.target===this)closePostulate()">
 <div class="postulate-content" role="dialog" aria-modal="true" aria-labelledby="postulateTitle">
 <h2 id="postulateTitle"></h2>
-<div class="postulate-description" id="postulateDescription">
-Opis tego postulatu zostanie wkrótce dodany.
-</div>
+<div class="postulate-description" id="postulateDescription"></div>
 <button class="btn" onclick="closePostulate()">← Powrót do postulatów</button>
 </div>
 </div>
 
-<!-- LATAJĄCY KOLIBER -->
 <div id="flyingHummingbird" aria-hidden="true">
 <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
 <defs>
@@ -565,11 +540,29 @@ const postulateNames={
 8:"🎉 Dzień integracji"
 };
 
+const postulateDescriptions={
+1:"Proponujemy wprowadzenie losowania szczęśliwych numerków, które odbywałoby się w każdą środę i piątek. Wylosowane numery byłyby publikowane na oficjalnym profilu szkoły na Facebooku. To prosty sposób na odrobinę radości i pozytywnego zaskoczenia w szkolnej codzienności! ✨",
+
+2:"Proponujemy odnowienie terenu zielonego znajdującego się przy szkolnej stołówce. Chcemy przekształcić go w bezpieczną, estetyczną i przyjazną przestrzeń dla dzieci oraz młodzieży. Byłoby to miejsce sprzyjające odpoczynkowi, integracji i wspólnej zabawie w otoczeniu natury. 🌿",
+
+3:"Proponujemy wyposażenie klas w kocyki, które umożliwią organizowanie zajęć na świeżym powietrzu. Dzięki temu nauczyciele mogliby prowadzić lekcje w otoczeniu natury, a uczniowie zdobywaliby wiedzę w nieco inny, przyjemniejszy sposób. Nauka nie musi odbywać się wyłącznie w szkolnych murach! 🌼",
+
+4:"Chcemy stworzyć przyjazne i wygodne przestrzenie do spędzania przerw. Proponujemy ustawienie komfortowych kanap w pobliżu każdej klasy, aby każdy uczeń miał możliwość odpoczynku między lekcjami. Zależy nam, by szkoła była miejscem, w którym każdy może poczuć się swobodnie i komfortowo. 🛋️",
+
+5:"Proponujemy organizowanie szkolnych kiermaszów charytatywnych, podczas których każdy będzie mógł podarować coś od siebie lub nabyć wybrany przedmiot za symboliczną kwotę „co łaska”. To doskonała okazja do rozwijania empatii, dzielenia się z innymi i wspólnego niesienia pomocy potrzebującym. ❤️",
+
+6:"Proponujemy utworzenie szkolnej skrzynki pomysłów, do której każdy uczeń będzie mógł wrzucić swoją propozycję dotyczącą ulepszenia naszej szkoły. Chcemy, aby każdy miał możliwość wyrażenia własnego zdania i realnego wpływu na szkolną rzeczywistość. Bo przecież najlepsze zmiany zaczynają się od dobrych pomysłów! 💡",
+
+7:"Proponujemy organizowanie konkursów wiedzy ogólnej oraz tematycznej inspirowanych popularnym teleturniejem „Milionerzy”. Uczniowie mogliby sprawdzić swoją wiedzę, zmierzyć się z ciekawymi pytaniami i poczuć ducha zdrowej rywalizacji. W końcu odrobina emocji i dobrej zabawy jeszcze nikomu nie zaszkodzi! 🧠",
+
+8:"Proponujemy organizowanie raz w miesiącu specjalnego Dnia Integracji. Podczas wybranych lekcji uczniowie wraz z nauczycielami uczestniczyliby we wspólnych zabawach, grach i aktywnościach klasowych. Chcemy, aby takie dni sprzyjały budowaniu relacji, wzajemnemu poznawaniu się i tworzeniu jeszcze bardziej przyjaznej atmosfery w naszej szkole. 🎉"
+};
+
 function openPostulate(number){
 const modal=document.getElementById("postulateModal");
+if(!postulateNames[number]||!postulateDescriptions[number])return;
 document.getElementById("postulateTitle").textContent=postulateNames[number];
-document.getElementById("postulateDescription").textContent=
-"Opis tego postulatu zostanie wkrótce dodany.";
+document.getElementById("postulateDescription").textContent=postulateDescriptions[number];
 modal.classList.remove("hidden");
 document.body.style.overflow="hidden";
 }
@@ -635,17 +628,12 @@ countVisit();
 /* SKRZYNKA POMYSŁÓW */
 document.getElementById("ideaForm").addEventListener("submit",async e=>{
 e.preventDefault();
-
 const status=document.getElementById("ideaStatus");
 const imie=document.getElementById("ideaName").value.trim()||"Anonim";
 const tresc=document.getElementById("ideaText").value.trim();
-
 if(!tresc)return;
-
 status.textContent="Wysyłanie...";
-
 const {error}=await db.from("pomysly").insert([{imie,tresc}]);
-
 if(error){
 status.textContent="Nie udało się wysłać. Spróbuj ponownie.";
 console.error(error);
@@ -658,18 +646,13 @@ e.target.reset();
 /* OPINIE */
 document.getElementById("opinionForm").addEventListener("submit",async e=>{
 e.preventDefault();
-
 const status=document.getElementById("opinionStatus");
 const podpis=document.getElementById("opinionName").value.trim()||"Anonim";
 const rola=document.getElementById("opinionRole").value;
 const tresc=document.getElementById("opinionText").value.trim();
-
 if(!tresc)return;
-
 status.textContent="Wysyłanie...";
-
 const {error}=await db.from("opinie").insert([{podpis,rola,tresc}]);
-
 if(error){
 status.textContent="Nie udało się wysłać opinii. Spróbuj ponownie.";
 console.error(error);
@@ -699,18 +682,15 @@ const {data,error}=await db.from("opinie")
 .limit(6);
 
 const box=document.getElementById("opinionList");
-
 if(error){
 box.innerHTML='<div class="opinion"><p>Nie udało się wczytać opinii.</p></div>';
 console.error(error);
 return;
 }
-
 if(!data.length){
 box.innerHTML='<div class="opinion"><p>Nie ma jeszcze opublikowanych opinii. Możesz dodać pierwszą!</p></div>';
 return;
 }
-
 box.innerHTML=data.map(o=>`
 <article class="opinion">
 <small>${escapeHTML(o.rola)} · ${escapeHTML(o.podpis)}</small>
@@ -724,25 +704,20 @@ loadPublicOpinions();
 async function adminLogin(){
 const password=document.getElementById("adminPassword").value;
 const status=document.getElementById("loginStatus");
-
 if(!password){
 status.textContent="Wpisz hasło.";
 return;
 }
-
 status.textContent="Logowanie...";
-
 const {data,error}=await db.auth.signInWithPassword({
 email:ADMIN_EMAIL,
 password:password
 });
-
 if(error||!data.user||data.user.email!==ADMIN_EMAIL){
 status.textContent="Nieprawidłowe hasło lub brak dostępu.";
 if(data.user)await db.auth.signOut();
 return;
 }
-
 showAdmin();
 }
 
@@ -763,12 +738,10 @@ document.getElementById("loginStatus").textContent="Wylogowano.";
 /* ZGŁOSZENIA ADMINISTRATORA */
 async function loadAdminData(){
 const {data:userData}=await db.auth.getUser();
-
 if(!userData.user||userData.user.email!==ADMIN_EMAIL)return;
 
 const ideasBox=document.getElementById("adminIdeas");
 const opinionsBox=document.getElementById("adminOpinions");
-
 ideasBox.textContent="Ładowanie...";
 opinionsBox.textContent="Ładowanie...";
 
@@ -811,22 +784,17 @@ ${o.zatwierdzona?"":`<button class="small-btn" onclick="approveOpinion('${o.id}'
 }
 }
 
-/* USUWANIE POMYSŁÓW */
 async function deleteIdea(id){
 if(!confirm("Czy na pewno usunąć ten pomysł?"))return;
-
 const {error}=await db.from("pomysly").delete().eq("id",id);
-
 if(error)alert("Nie udało się usunąć pomysłu.");
 else await loadAdminData();
 }
 
-/* ZATWIERDZANIE OPINII */
 async function approveOpinion(id){
 const {error}=await db.from("opinie")
 .update({zatwierdzona:true})
 .eq("id",id);
-
 if(error){
 alert("Nie udało się zatwierdzić opinii.");
 }else{
@@ -835,12 +803,9 @@ await loadPublicOpinions();
 }
 }
 
-/* USUWANIE OPINII */
 async function deleteOpinion(id){
 if(!confirm("Czy na pewno usunąć tę opinię?"))return;
-
 const {error}=await db.from("opinie").delete().eq("id",id);
-
 if(error){
 alert("Nie udało się usunąć opinii.");
 }else{
