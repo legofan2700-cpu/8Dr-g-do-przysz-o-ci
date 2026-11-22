@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -40,9 +39,7 @@ nav a {
     transition: 0.3s;
 }
 
-nav a:hover {
-    color: #b8e8fa;
-}
+nav a:hover { color: #b8e8fa; }
 
 .hero {
     min-height: 520px;
@@ -93,10 +90,7 @@ nav a:hover {
     filter: drop-shadow(0 5px 8px #89cff0);
 }
 
-.koliber svg {
-    width: 100%;
-    height: 100%;
-}
+.koliber svg { width: 100%; height: 100%; }
 
 .skrzydlo {
     transform-box: fill-box;
@@ -219,9 +213,7 @@ h2 {
     transition: 0.35s;
 }
 
-.cel:hover .ikona {
-    transform: scale(1.25) rotate(-8deg);
-}
+.cel:hover .ikona { transform: scale(1.25) rotate(-8deg); }
 
 .numer {
     background: #1565c0;
@@ -236,10 +228,7 @@ h2 {
     font-weight: bold;
 }
 
-.cel h3 {
-    color: #1565c0;
-    font-size: 20px;
-}
+.cel h3 { color: #1565c0; font-size: 20px; }
 
 .cel p {
     color: #777;
@@ -351,33 +340,20 @@ footer {
     margin-top: 40px;
 }
 
-footer h2 {
-    color: #b8e8fa;
-}
-
-footer p {
-    line-height: 1.6;
-}
+footer h2 { color: #b8e8fa; }
+footer p { line-height: 1.6; }
 
 @media (max-width: 750px) {
     .rozwidlenie {
         grid-template-columns: repeat(2, 1fr);
         gap: 60px 12px;
     }
-
-    .hero h1 {
-        font-size: 34px;
-    }
+    .hero h1 { font-size: 34px; }
 }
 
 @media (max-width: 420px) {
-    .rozwidlenie {
-        grid-template-columns: 1fr;
-    }
-
-    nav {
-        gap: 15px;
-    }
+    .rozwidlenie { grid-template-columns: 1fr; }
+    nav { gap: 15px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -400,7 +376,6 @@ footer p {
 </nav>
 
 <div class="hero" id="glowna">
-
     <div class="koliber">
     <svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
         <path d="M65 65 L25 88 L58 76 L70 83 Z" fill="#89CFF0"/>
@@ -422,7 +397,6 @@ footer p {
 
 <section id="onas">
     <h2>Kim jesteśmy?</h2>
-
     <p class="opis">
     Jesteśmy zgraną i zdecydowaną grupą młodych i zdolnych nastolatków.
     Naszym celem, jak sama nazwa naszej partii mówi, jest zaproponowanie
@@ -441,7 +415,6 @@ footer p {
     <div class="glowna-droga"></div>
 
     <div class="rozwidlenie">
-
         <div class="cel">
             <div class="numer">1</div>
             <div class="ikona">🍀</div>
@@ -497,7 +470,6 @@ footer p {
             <h3>Dzień integracji nauczycieli i uczniów</h3>
             <p>Wspólne zabawy i wydarzenia, które budują lepsze relacje, wzajemny szacunek i dobrą atmosferę w szkole.</p>
         </div>
-
     </div>
 </section>
 
@@ -532,10 +504,6 @@ footer p {
 
     <div class="admin-panel" id="logowanie">
         <h2>🔐 Logowanie administratora</h2>
-
-        <input type="email" id="adminEmail"
-        placeholder="E-mail administratora"
-        autocomplete="username">
 
         <input type="password" id="haslo"
         placeholder="Hasło administratora"
@@ -579,6 +547,9 @@ footer p {
 <script>
 const SUPABASE_URL = "https://cvtoldutzctvpxijfsbb.supabase.co";
 const SUPABASE_KEY = "sb_publishable_HYeGXb6W_rufl2rLsaaMPA_3MgwJ4T-";
+
+// E-mail administratora jest ustawiony na stałe.
+const ADMIN_EMAIL = "legofan2700@gmail.com";
 
 const db = window.supabase.createClient(
     SUPABASE_URL,
@@ -633,116 +604,132 @@ function pokazLogowanie() {
 }
 
 async function zaloguj() {
-    const email = document.getElementById("adminEmail").value.trim();
     const haslo = document.getElementById("haslo").value;
     const blad = document.getElementById("blad");
 
-    if (!email || !haslo) {
-        blad.textContent = "Wpisz e-mail i hasło.";
+    if (!haslo) {
+        blad.textContent = "Wpisz hasło administratora.";
         return;
     }
 
     blad.textContent = "Logowanie...";
 
-    const { error } = await db.auth.signInWithPassword({
-        email: email,
-        password: haslo
-    });
+    try {
+        const { data, error } = await db.auth.signInWithPassword({
+            email: ADMIN_EMAIL,
+            password: haslo
+        });
 
-    if (error) {
-        blad.textContent = "Nie udało się zalogować. Sprawdź e-mail i hasło.";
+        if (error) throw error;
+
+        // Dodatkowa kontrola konta administratora.
+        if (!data.user || data.user.email !== ADMIN_EMAIL) {
+            await db.auth.signOut();
+            throw new Error("To nie jest konto administratora.");
+        }
+
+        document.getElementById("logowanie").style.display = "none";
+        document.getElementById("panel").style.display = "block";
+        document.getElementById("haslo").value = "";
+
+        await pokazPomysly();
+
+    } catch (error) {
         console.error(error);
-        return;
+        blad.textContent =
+            "Nie udało się zalogować. Sprawdź hasło administratora.";
     }
-
-    document.getElementById("logowanie").style.display = "none";
-    document.getElementById("panel").style.display = "block";
-    document.getElementById("haslo").value = "";
-
-    await pokazPomysly();
 }
 
 async function pokazPomysly() {
     const lista = document.getElementById("lista");
-    const { data: sesja } = await db.auth.getSession();
 
-    if (!sesja.session) {
-        lista.textContent = "Zaloguj się ponownie.";
-        document.getElementById("panel").style.display = "none";
-        document.getElementById("logowanie").style.display = "block";
-        return;
-    }
+    try {
+        const { data: sesjaData, error: sesjaError } =
+            await db.auth.getSession();
 
-    lista.textContent = "Ładowanie pomysłów...";
+        if (sesjaError) throw sesjaError;
 
-    const { data, error } = await db
-        .from("pomysly")
-        .select("*")
-        .order("created_at", { ascending: false });
+        const sesja = sesjaData.session;
 
-    if (error) {
-        lista.textContent = "Nie udało się pobrać pomysłów.";
+        if (!sesja || sesja.user.email !== ADMIN_EMAIL) {
+            lista.textContent = "Zaloguj się ponownie.";
+            document.getElementById("panel").style.display = "none";
+            document.getElementById("logowanie").style.display = "block";
+            return;
+        }
+
+        lista.textContent = "Ładowanie pomysłów...";
+
+        const { data, error } = await db
+            .from("pomysly")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        lista.replaceChildren();
+
+        document.getElementById("liczba").textContent =
+            "Liczba zgłoszeń: " + data.length;
+
+        if (data.length === 0) {
+            lista.textContent = "Nie ma jeszcze żadnych pomysłów.";
+            return;
+        }
+
+        data.forEach(p => {
+            const karta = document.createElement("div");
+            karta.className = "zgloszenie";
+
+            const autor = document.createElement("strong");
+            autor.textContent = "Autor: " + (p.imie || "Anonim");
+
+            const tresc = document.createElement("p");
+            tresc.textContent = p.tresc;
+
+            const dataElement = document.createElement("small");
+            dataElement.textContent =
+                "Data: " + new Date(p.created_at).toLocaleString("pl-PL");
+
+            const usun = document.createElement("button");
+            usun.textContent = "Usuń pomysł";
+
+            usun.onclick = async function() {
+                if (!confirm("Czy na pewno usunąć ten pomysł?")) return;
+
+                usun.disabled = true;
+
+                const { error } = await db
+                    .from("pomysly")
+                    .delete()
+                    .eq("id", p.id);
+
+                if (error) {
+                    alert("Nie udało się usunąć pomysłu.");
+                    console.error(error);
+                    usun.disabled = false;
+                    return;
+                }
+
+                await pokazPomysly();
+            };
+
+            karta.append(
+                autor,
+                tresc,
+                dataElement,
+                document.createElement("br"),
+                usun
+            );
+
+            lista.appendChild(karta);
+        });
+
+    } catch (error) {
         console.error(error);
-        return;
+        lista.textContent = "Nie udało się pobrać pomysłów.";
     }
-
-    lista.replaceChildren();
-
-    document.getElementById("liczba").textContent =
-        "Liczba zgłoszeń: " + data.length;
-
-    if (data.length === 0) {
-        lista.textContent = "Nie ma jeszcze żadnych pomysłów.";
-        return;
-    }
-
-    data.forEach(p => {
-        const karta = document.createElement("div");
-        karta.className = "zgloszenie";
-
-        const autor = document.createElement("strong");
-        autor.textContent = "Autor: " + (p.imie || "Anonim");
-
-        const tresc = document.createElement("p");
-        tresc.textContent = p.tresc;
-
-        const dataElement = document.createElement("small");
-        dataElement.textContent =
-            "Data: " + new Date(p.created_at).toLocaleString("pl-PL");
-
-        const usun = document.createElement("button");
-        usun.textContent = "Usuń pomysł";
-
-        usun.onclick = async function() {
-            if (!confirm("Czy na pewno usunąć ten pomysł?")) return;
-
-            usun.disabled = true;
-
-            const { error } = await db
-                .from("pomysly")
-                .delete()
-                .eq("id", p.id);
-
-            if (error) {
-                alert("Nie udało się usunąć pomysłu.");
-                console.error(error);
-                usun.disabled = false;
-                return;
-            }
-
-            await pokazPomysly();
-        };
-
-        karta.append(
-            autor,
-            tresc,
-            dataElement,
-            document.createElement("br"),
-            usun
-        );
-
-        lista.appendChild(karta);
-    });
 }
 
 async function wyloguj() {
@@ -751,9 +738,9 @@ async function wyloguj() {
     document.getElementById("panel").style.display = "none";
     document.getElementById("logowanie").style.display = "none";
     document.getElementById("haslo").value = "";
-    document.getElementById("adminEmail").value = "";
     document.getElementById("blad").textContent = "";
     document.getElementById("lista").replaceChildren();
+    document.getElementById("liczba").textContent = "";
 }
 </script>
 
