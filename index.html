@@ -100,68 +100,42 @@ padding:20px;
 box-shadow:var(--shadow);
 overflow:hidden
 }
-.eight-roads svg{
-display:block;
-width:100%;
-height:auto
-}
+.eight-roads svg{display:block;width:100%;height:auto}
 .road-shoulder{
-fill:none;
-stroke:#aeb8c2;
-stroke-width:54;
-stroke-linecap:round;
-stroke-linejoin:round
+fill:none;stroke:#aeb8c2;stroke-width:54;
+stroke-linecap:round;stroke-linejoin:round
 }
 .road-asphalt{
-fill:none;
-stroke:#414850;
-stroke-width:46;
-stroke-linecap:round;
-stroke-linejoin:round
+fill:none;stroke:#414850;stroke-width:46;
+stroke-linecap:round;stroke-linejoin:round
 }
 .road-center{
-fill:none;
-stroke:#f8f8e9;
-stroke-width:3;
-stroke-dasharray:16 15;
-stroke-linecap:round
+fill:none;stroke:#f8f8e9;stroke-width:3;
+stroke-dasharray:16 15;stroke-linecap:round
 }
 .road-point{
-fill:#fff;
-stroke:#1565c0;
-stroke-width:5;
+fill:#fff;stroke:#1565c0;stroke-width:5;
 transition:.2s
 }
+.road-point-link{cursor:pointer}
 .road-point-link:hover .road-point{
-fill:#bce5ff;
-stroke-width:8
+fill:#bce5ff;stroke-width:8
 }
 .road-point-number{
-fill:#1565c0;
-font-size:21px;
-font-weight:bold;
-text-anchor:middle;
-pointer-events:none
+fill:#1565c0;font-size:21px;font-weight:bold;
+text-anchor:middle;pointer-events:none
 }
 .road-destinations{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px;
-margin-top:15px
+display:grid;grid-template-columns:repeat(4,1fr);
+gap:12px;margin-top:15px
 }
 .road-destinations a{
-display:block;
-padding:15px 9px;
-text-align:center;
-background:var(--bg);
-border:1px solid var(--border);
-border-radius:14px;
-font-weight:bold;
-transition:.2s
+display:block;padding:15px 9px;text-align:center;
+background:var(--bg);border:1px solid var(--border);
+border-radius:14px;font-weight:bold;transition:.2s
 }
 .road-destinations a:hover{
-transform:translateY(-5px);
-border-color:var(--blue);
+transform:translateY(-5px);border-color:var(--blue);
 color:var(--blue)
 }
 
@@ -196,16 +170,15 @@ position:fixed;inset:0;z-index:200;background:#081e37dc;
 display:grid;place-items:center;padding:20px
 }
 .postulate-content{
-position:relative;
-background:var(--card);color:var(--text);padding:35px;
-border:2px solid var(--border);
+position:relative;background:var(--card);color:var(--text);
+padding:35px;border:2px solid var(--border);
 border-radius:22px;max-width:650px;width:100%;
 max-height:85vh;overflow-y:auto;box-shadow:var(--shadow)
 }
 .postulate-content::before{
-content:"✦  ✧  ✦";
-display:block;text-align:center;color:var(--blue);
-font-size:22px;letter-spacing:10px;margin-bottom:18px
+content:"✦  ✧  ✦";display:block;text-align:center;
+color:var(--blue);font-size:22px;letter-spacing:10px;
+margin-bottom:18px
 }
 .postulate-content h2{color:var(--blue);font-size:clamp(23px,4vw,32px)}
 .postulate-description{
@@ -424,12 +397,11 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 </div>
 </section>
 
-<!-- NOWA DROGA Z OŚMIOMA ODNOGAMI -->
 <section class="container reveal">
 <h2>Wybierz swoją drogę</h2>
 <p class="subtitle">
 Jedna wspólna droga rozchodzi się na osiem kierunków.
-Kliknij punkt na drodze, aby przejść do wybranego postulatu.
+Kliknij numer lub nazwę postulatu, aby przejść do niego i automatycznie otworzyć szczegóły.
 </p>
 
 <div class="eight-roads">
@@ -438,7 +410,6 @@ xmlns="http://www.w3.org/2000/svg"
 role="img"
 aria-label="Droga rozgałęziająca się na osiem dróg prowadzących do postulatów">
 
-<!-- Pobocza -->
 <g class="road-shoulder">
 <path d="M500 390 Q350 270 80 75"/>
 <path d="M500 390 Q390 220 220 35"/>
@@ -450,7 +421,6 @@ aria-label="Droga rozgałęziająca się na osiem dróg prowadzących do postula
 <path d="M500 390 Q720 350 970 300"/>
 </g>
 
-<!-- Asfalt -->
 <g class="road-asphalt">
 <path d="M500 390 Q350 270 80 75"/>
 <path d="M500 390 Q390 220 220 35"/>
@@ -462,7 +432,6 @@ aria-label="Droga rozgałęziająca się na osiem dróg prowadzących do postula
 <path d="M500 390 Q720 350 970 300"/>
 </g>
 
-<!-- Przerywane linie -->
 <g class="road-center">
 <path d="M500 390 Q350 270 80 75"/>
 <path d="M500 390 Q390 220 220 35"/>
@@ -474,65 +443,60 @@ aria-label="Droga rozgałęziająca się na osiem dróg prowadzących do postula
 <path d="M500 390 Q720 350 970 300"/>
 </g>
 
-<!-- Centralny punkt -->
-<circle cx="500" cy="390" r="42"
-fill="#1565c0" stroke="#fff" stroke-width="6"/>
-<text x="500" y="386" fill="white"
-font-size="17" font-weight="bold" text-anchor="middle">8</text>
-<text x="500" y="405" fill="white"
-font-size="10" text-anchor="middle">DRÓG</text>
+<circle cx="500" cy="390" r="42" fill="#1565c0" stroke="#fff" stroke-width="6"/>
+<text x="500" y="386" fill="white" font-size="17" font-weight="bold" text-anchor="middle">8</text>
+<text x="500" y="405" fill="white" font-size="10" text-anchor="middle">DRÓG</text>
 
-<!-- Punkty na końcach odnóg -->
-<a href="#cel1" class="road-point-link" aria-label="Postulat 1">
+<a href="#cel1" class="road-point-link" aria-label="Postulat 1" onclick="goToPostulate(1);return false;">
 <circle class="road-point" cx="80" cy="75" r="25"/>
 <text class="road-point-number" x="80" y="82">1</text>
 </a>
 
-<a href="#cel2" class="road-point-link" aria-label="Postulat 2">
+<a href="#cel2" class="road-point-link" aria-label="Postulat 2" onclick="goToPostulate(2);return false;">
 <circle class="road-point" cx="220" cy="35" r="25"/>
 <text class="road-point-number" x="220" y="42">2</text>
 </a>
 
-<a href="#cel3" class="road-point-link" aria-label="Postulat 3">
+<a href="#cel3" class="road-point-link" aria-label="Postulat 3" onclick="goToPostulate(3);return false;">
 <circle class="road-point" cx="365" cy="20" r="25"/>
 <text class="road-point-number" x="365" y="27">3</text>
 </a>
 
-<a href="#cel4" class="road-point-link" aria-label="Postulat 4">
+<a href="#cel4" class="road-point-link" aria-label="Postulat 4" onclick="goToPostulate(4);return false;">
 <circle class="road-point" cx="490" cy="15" r="25"/>
 <text class="road-point-number" x="490" y="22">4</text>
 </a>
 
-<a href="#cel5" class="road-point-link" aria-label="Postulat 5">
+<a href="#cel5" class="road-point-link" aria-label="Postulat 5" onclick="goToPostulate(5);return false;">
 <circle class="road-point" cx="625" cy="20" r="25"/>
 <text class="road-point-number" x="625" y="27">5</text>
 </a>
 
-<a href="#cel6" class="road-point-link" aria-label="Postulat 6">
+<a href="#cel6" class="road-point-link" aria-label="Postulat 6" onclick="goToPostulate(6);return false;">
 <circle class="road-point" cx="780" cy="35" r="25"/>
 <text class="road-point-number" x="780" y="42">6</text>
 </a>
 
-<a href="#cel7" class="road-point-link" aria-label="Postulat 7">
+<a href="#cel7" class="road-point-link" aria-label="Postulat 7" onclick="goToPostulate(7);return false;">
 <circle class="road-point" cx="920" cy="75" r="25"/>
 <text class="road-point-number" x="920" y="82">7</text>
 </a>
 
-<a href="#cel8" class="road-point-link" aria-label="Postulat 8">
+<a href="#cel8" class="road-point-link" aria-label="Postulat 8" onclick="goToPostulate(8);return false;">
 <circle class="road-point" cx="970" cy="300" r="25"/>
 <text class="road-point-number" x="970" y="307">8</text>
 </a>
 </svg>
 
 <div class="road-destinations">
-<a href="#cel1">🍀 1. Szczęśliwe numerki</a>
-<a href="#cel2">🌳 2. Renowacja terenu zielonego</a>
-<a href="#cel3">🧺 3. Kocyki dla klas</a>
-<a href="#cel4">🛋️ 4. Komfortowe miejsca</a>
-<a href="#cel5">❤️ 5. Kiermasze charytatywne</a>
-<a href="#cel6">💡 6. Skrzynka pomysłów</a>
-<a href="#cel7">🧠 7. Konkursy wiedzy</a>
-<a href="#cel8">🎉 8. Dzień integracji</a>
+<a href="#cel1" onclick="goToPostulate(1);return false;">🍀 1. Szczęśliwe numerki</a>
+<a href="#cel2" onclick="goToPostulate(2);return false;">🌳 2. Renowacja terenu zielonego</a>
+<a href="#cel3" onclick="goToPostulate(3);return false;">🧺 3. Kocyki dla klas</a>
+<a href="#cel4" onclick="goToPostulate(4);return false;">🛋️ 4. Komfortowe miejsca</a>
+<a href="#cel5" onclick="goToPostulate(5);return false;">❤️ 5. Kiermasze charytatywne</a>
+<a href="#cel6" onclick="goToPostulate(6);return false;">💡 6. Skrzynka pomysłów</a>
+<a href="#cel7" onclick="goToPostulate(7);return false;">🧠 7. Konkursy wiedzy</a>
+<a href="#cel8" onclick="goToPostulate(8);return false;">🎉 8. Dzień integracji</a>
 </div>
 </div>
 </section>
@@ -738,6 +702,21 @@ document.getElementById("postulateTitle").textContent=postulateNames[number];
 document.getElementById("postulateDescription").textContent=postulateDescriptions[number];
 modal.classList.remove("hidden");
 document.body.style.overflow="hidden";
+}
+
+/* PRZEJŚCIE Z DROGI DO POSTULATU */
+function goToPostulate(number){
+const card=document.getElementById("cel"+number);
+if(!card)return;
+
+card.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+setTimeout(()=>{
+openPostulate(number);
+},650);
 }
 
 function closePostulate(){
