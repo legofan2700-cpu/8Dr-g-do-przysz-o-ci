@@ -20,7 +20,6 @@ body {
     overflow-x: hidden;
 }
 
-/* MENU */
 nav {
     background: #1565c0;
     padding: 17px;
@@ -45,7 +44,6 @@ nav a:hover {
     color: #b8e8fa;
 }
 
-/* EKRAN POWITALNY */
 .hero {
     min-height: 520px;
     padding: 65px 20px;
@@ -61,11 +59,13 @@ nav a:hover {
     font-size: 48px;
     margin: 10px;
     animation: pojawienie 1s ease;
+    text-align: center;
 }
 
 .hero p {
     font-size: 21px;
     margin: 15px;
+    text-align: center;
 }
 
 .przycisk {
@@ -85,7 +85,6 @@ nav a:hover {
     box-shadow: 0 0 20px white;
 }
 
-/* KOLIBER */
 .koliber {
     width: 130px;
     height: 110px;
@@ -120,7 +119,6 @@ nav a:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* SEKCJE */
 section {
     padding: 45px 20px;
     text-align: center;
@@ -138,7 +136,6 @@ h2 {
     font-size: 18px;
 }
 
-/* LICZNIKI */
 .licznik {
     display: flex;
     justify-content: center;
@@ -161,7 +158,6 @@ h2 {
     font-size: 30px;
 }
 
-/* DROGI */
 .glowna-droga {
     width: 20px;
     height: 90px;
@@ -251,7 +247,6 @@ h2 {
     line-height: 1.5;
 }
 
-/* SKRZYNKA POMYSŁÓW */
 .skrzynka {
     max-width: 650px;
     margin: 25px auto;
@@ -302,13 +297,18 @@ h2 {
     transform: scale(1.05);
 }
 
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
 #komunikat {
     color: #1565c0;
     font-weight: bold;
     margin-top: 15px;
 }
 
-/* PANEL ADMINISTRATORA */
 .admin-panel {
     display: none;
     max-width: 750px;
@@ -343,7 +343,6 @@ h2 {
     font-weight: bold;
 }
 
-/* STOPKA */
 footer {
     background: #123e70;
     color: white;
@@ -360,7 +359,6 @@ footer p {
     line-height: 1.6;
 }
 
-/* TELEFONY */
 @media (max-width: 750px) {
     .rozwidlenie {
         grid-template-columns: repeat(2, 1fr);
@@ -393,7 +391,6 @@ footer p {
 
 <body>
 
-<!-- MENU -->
 <nav>
     <a href="#glowna">Strona główna</a>
     <a href="#cele">Nasze cele</a>
@@ -402,7 +399,6 @@ footer p {
     <a href="#kontakt">Kontakt</a>
 </nav>
 
-<!-- EKRAN POWITALNY -->
 <div class="hero" id="glowna">
 
     <div class="koliber">
@@ -422,10 +418,8 @@ footer p {
     <h1>8Dróg do przyszłości</h1>
     <p>Przyszłość zaczyna się dziś!</p>
     <a href="#cele" class="przycisk">Poznaj nasze cele ↓</a>
-
 </div>
 
-<!-- O NAS -->
 <section id="onas">
     <h2>Kim jesteśmy?</h2>
 
@@ -436,25 +430,14 @@ footer p {
     </p>
 
     <div class="licznik">
-        <div>
-            <strong>8</strong>
-            naszych postulatów
-        </div>
-        <div>
-            <strong>1</strong>
-            wspólny cel
-        </div>
-        <div>
-            <strong>100%</strong>
-            zaangażowania
-        </div>
+        <div><strong>8</strong>naszych postulatów</div>
+        <div><strong>1</strong>wspólny cel</div>
+        <div><strong>100%</strong>zaangażowania</div>
     </div>
 </section>
 
-<!-- CELE -->
 <section id="cele">
     <h2>Nasze 8 dróg do przyszłości</h2>
-
     <div class="glowna-droga"></div>
 
     <div class="rozwidlenie">
@@ -518,7 +501,6 @@ footer p {
     </div>
 </section>
 
-<!-- SKRZYNKA POMYSŁÓW -->
 <section id="pomysly">
     <h2>💡 Masz pomysł? Podziel się nim!</h2>
 
@@ -530,16 +512,18 @@ footer p {
     <div class="skrzynka">
         <form id="formularz">
             <input type="text" id="imie"
+            maxlength="60"
             placeholder="Twoje imię (opcjonalnie)">
 
             <textarea id="pomysl"
+            maxlength="2000"
             placeholder="Wpisz swój pomysł..."
             required></textarea>
 
-            <button type="submit">Wyślij pomysł</button>
+            <button type="submit" id="wyslij">Wyślij pomysł</button>
         </form>
 
-        <p id="komunikat"></p>
+        <p id="komunikat" aria-live="polite"></p>
     </div>
 
     <button class="admin-przycisk" onclick="pokazLogowanie()">
@@ -549,8 +533,13 @@ footer p {
     <div class="admin-panel" id="logowanie">
         <h2>🔐 Logowanie administratora</h2>
 
+        <input type="email" id="adminEmail"
+        placeholder="E-mail administratora"
+        autocomplete="username">
+
         <input type="password" id="haslo"
-        placeholder="Wpisz hasło administratora">
+        placeholder="Hasło administratora"
+        autocomplete="current-password">
 
         <button class="admin-przycisk" onclick="zaloguj()">
             Zaloguj się
@@ -564,13 +553,16 @@ footer p {
         <p id="liczba"></p>
         <div id="lista"></div>
 
+        <button class="admin-przycisk" onclick="pokazPomysly()">
+            Odśwież listę
+        </button>
+
         <button class="admin-przycisk" onclick="wyloguj()">
             Wyloguj się
         </button>
     </div>
 </section>
 
-<!-- STOPKA -->
 <footer id="kontakt">
     <h2>8Dróg do przyszłości</h2>
     <p>8 DRÓG – JEDNA WSPÓLNA PRZYSZŁOŚĆ!</p>
@@ -582,101 +574,169 @@ footer p {
     <p>© 2026 8Dróg do przyszłości</p>
 </footer>
 
-<!-- OBSŁUGA SKRZYNKI I PANELU -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+const SUPABASE_URL = "https://cvtoldutzctvpxijfsbb.supabase.co";
+const SUPABASE_KEY = "sb_publishable_HYeGXb6W_rufl2rLsaaMPA_3MgwJ4T-";
 
-const HASLO_ADMINA = "8Droga2026";
-
-let pomysly = JSON.parse(
-    localStorage.getItem("pomysly8Drog") || "[]"
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
-document.getElementById("formularz").addEventListener("submit", function(e) {
+const formularz = document.getElementById("formularz");
+const komunikat = document.getElementById("komunikat");
+
+formularz.addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const imie = document.getElementById("imie").value.trim();
     const tresc = document.getElementById("pomysl").value.trim();
+    const przycisk = document.getElementById("wyslij");
 
-    if (!tresc) return;
+    if (!tresc) {
+        komunikat.textContent = "Wpisz najpierw swój pomysł.";
+        return;
+    }
 
-    pomysly.push({
-        imie: imie || "Anonim",
-        tresc: tresc,
-        data: new Date().toLocaleString("pl-PL")
-    });
+    przycisk.disabled = true;
+    komunikat.textContent = "Wysyłanie pomysłu...";
 
-    zapisz();
+    try {
+        const { error } = await db
+            .from("pomysly")
+            .insert({
+                imie: imie || "Anonim",
+                tresc: tresc
+            });
 
-    document.getElementById("formularz").reset();
-    document.getElementById("komunikat").textContent =
-        "Dziękujemy! Twój pomysł został zapisany. 💙";
+        if (error) throw error;
+
+        formularz.reset();
+        komunikat.textContent =
+            "Dziękujemy! Twój pomysł został zapisany. 💙";
+
+    } catch (error) {
+        console.error(error);
+        komunikat.textContent =
+            "Nie udało się wysłać pomysłu. Spróbuj ponownie.";
+    } finally {
+        przycisk.disabled = false;
+    }
 });
-
-function zapisz() {
-    localStorage.setItem("pomysly8Drog", JSON.stringify(pomysly));
-}
 
 function pokazLogowanie() {
     document.getElementById("logowanie").style.display = "block";
     document.getElementById("panel").style.display = "none";
+    document.getElementById("blad").textContent = "";
 }
 
-function zaloguj() {
+async function zaloguj() {
+    const email = document.getElementById("adminEmail").value.trim();
     const haslo = document.getElementById("haslo").value;
+    const blad = document.getElementById("blad");
 
-    if (haslo === HASLO_ADMINA) {
-        document.getElementById("logowanie").style.display = "none";
-        document.getElementById("panel").style.display = "block";
-        document.getElementById("haslo").value = "";
-        pokazPomysly();
-    } else {
-        document.getElementById("blad").textContent =
-            "Nieprawidłowe hasło!";
+    if (!email || !haslo) {
+        blad.textContent = "Wpisz e-mail i hasło.";
+        return;
     }
+
+    blad.textContent = "Logowanie...";
+
+    const { error } = await db.auth.signInWithPassword({
+        email: email,
+        password: haslo
+    });
+
+    if (error) {
+        blad.textContent = "Nie udało się zalogować. Sprawdź e-mail i hasło.";
+        console.error(error);
+        return;
+    }
+
+    document.getElementById("logowanie").style.display = "none";
+    document.getElementById("panel").style.display = "block";
+    document.getElementById("haslo").value = "";
+
+    await pokazPomysly();
 }
 
-function pokazPomysly() {
-    pomysly = JSON.parse(
-        localStorage.getItem("pomysly8Drog") || "[]"
-    );
-
+async function pokazPomysly() {
     const lista = document.getElementById("lista");
+    const { data: sesja } = await db.auth.getSession();
+
+    if (!sesja.session) {
+        lista.textContent = "Zaloguj się ponownie.";
+        document.getElementById("panel").style.display = "none";
+        document.getElementById("logowanie").style.display = "block";
+        return;
+    }
+
+    lista.textContent = "Ładowanie pomysłów...";
+
+    const { data, error } = await db
+        .from("pomysly")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        lista.textContent = "Nie udało się pobrać pomysłów.";
+        console.error(error);
+        return;
+    }
+
     lista.replaceChildren();
 
     document.getElementById("liczba").textContent =
-        "Liczba zgłoszeń: " + pomysly.length;
+        "Liczba zgłoszeń: " + data.length;
 
-    if (pomysly.length === 0) {
+    if (data.length === 0) {
         lista.textContent = "Nie ma jeszcze żadnych pomysłów.";
         return;
     }
 
-    pomysly.forEach((p, index) => {
+    data.forEach(p => {
         const karta = document.createElement("div");
         karta.className = "zgloszenie";
 
         const autor = document.createElement("strong");
-        autor.textContent = "Autor: " + p.imie;
+        autor.textContent = "Autor: " + (p.imie || "Anonim");
 
         const tresc = document.createElement("p");
         tresc.textContent = p.tresc;
 
-        const data = document.createElement("small");
-        data.textContent = "Data: " + p.data;
+        const dataElement = document.createElement("small");
+        dataElement.textContent =
+            "Data: " + new Date(p.created_at).toLocaleString("pl-PL");
 
         const usun = document.createElement("button");
         usun.textContent = "Usuń pomysł";
 
-        usun.onclick = function() {
-            pomysly.splice(index, 1);
-            zapisz();
-            pokazPomysly();
+        usun.onclick = async function() {
+            if (!confirm("Czy na pewno usunąć ten pomysł?")) return;
+
+            usun.disabled = true;
+
+            const { error } = await db
+                .from("pomysly")
+                .delete()
+                .eq("id", p.id);
+
+            if (error) {
+                alert("Nie udało się usunąć pomysłu.");
+                console.error(error);
+                usun.disabled = false;
+                return;
+            }
+
+            await pokazPomysly();
         };
 
         karta.append(
             autor,
             tresc,
-            data,
+            dataElement,
             document.createElement("br"),
             usun
         );
@@ -685,13 +745,16 @@ function pokazPomysly() {
     });
 }
 
-function wyloguj() {
+async function wyloguj() {
+    await db.auth.signOut();
+
     document.getElementById("panel").style.display = "none";
     document.getElementById("logowanie").style.display = "none";
     document.getElementById("haslo").value = "";
+    document.getElementById("adminEmail").value = "";
     document.getElementById("blad").textContent = "";
+    document.getElementById("lista").replaceChildren();
 }
-
 </script>
 
 </body>
