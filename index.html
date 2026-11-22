@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -9,28 +8,28 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-:root {
-  --bg:#eef6ff;--card:#fff;--text:#173b61;--muted:#607b98;
-  --blue:#1565c0;--blue2:#3698e8;--border:#d6e8fa;
-  --shadow:0 10px 30px rgba(21,101,192,.10);
+:root{
+--bg:#eef6ff;--card:#fff;--text:#173b61;--muted:#607b98;
+--blue:#1565c0;--blue2:#3698e8;--border:#d6e8fa;
+--shadow:0 10px 30px rgba(21,101,192,.10)
 }
-body.dark {
-  --bg:#101b2b;--card:#192a40;--text:#e6f2ff;--muted:#a7bdd5;
-  --blue:#58aaff;--blue2:#287dc5;--border:#304761;
-  --shadow:0 10px 30px rgba(0,0,0,.2);
+body.dark{
+--bg:#101b2b;--card:#192a40;--text:#e6f2ff;--muted:#a7bdd5;
+--blue:#58aaff;--blue2:#287dc5;--border:#304761;
+--shadow:0 10px 30px rgba(0,0,0,.2)
 }
 *{box-sizing:border-box;scroll-behavior:smooth}
-body{margin:0;font-family:Arial,sans-serif;color:var(--text);background:var(--bg);transition:background .3s,color .3s;overflow-x:hidden}
+body{margin:0;font-family:Arial,sans-serif;color:var(--text);background:var(--bg);transition:.3s;overflow-x:hidden}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 a{color:inherit;text-decoration:none}
 .container{width:min(1120px,92%);margin:auto}
-section{padding:75px 0;scroll-margin-top:80px}
+section{padding:75px 0;scroll-margin-top:90px}
 h1,h2,h3{line-height:1.2}
 h2{font-size:clamp(27px,4vw,38px);text-align:center;margin:0 0 15px}
 .subtitle{text-align:center;color:var(--muted);margin:0 auto 35px;max-width:700px;line-height:1.7}
 
-header{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--border);box-shadow:0 3px 15px rgba(0,0,0,.04)}
+header{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--border);box-shadow:0 3px 15px #0000000a}
 .nav{min-height:85px;display:flex;align-items:center;justify-content:space-between;gap:15px}
 .logo{font-size:23px;font-weight:900;color:var(--blue);display:flex;align-items:center;gap:10px}
 nav{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
@@ -41,16 +40,14 @@ nav a:hover{color:var(--blue)}
 .small-btn:hover,.btn:hover{transform:translateY(-3px);filter:brightness(1.1)}
 .small-btn.secondary{background:var(--bg);color:var(--text);border:1px solid var(--border)}
 
-/* KRÓLEWSKI KOLIBER */
 .king-logo{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:76px;height:76px;border:4px solid #64c5ff;border-radius:50%;
-  background:linear-gradient(145deg,#eaf8ff,#b9e5ff);
-  box-shadow:0 0 12px rgba(54,152,232,.4);overflow:hidden;flex-shrink:0;
+display:inline-flex;align-items:center;justify-content:center;
+width:76px;height:76px;border:4px solid #64c5ff;border-radius:50%;
+background:linear-gradient(145deg,#eaf8ff,#b9e5ff);
+box-shadow:0 0 12px #3698e866;overflow:hidden;flex-shrink:0
 }
 .king-logo svg{width:100%;height:100%}
 .hero-logo.king-logo{width:150px;height:150px}
-.welcome-box .king-logo{width:115px;height:115px}
 
 .hero{min-height:590px;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#dceeff,#a9d8ff,#f1f8ff);color:#123e70;padding:80px 15px}
 body.dark .hero{background:linear-gradient(135deg,#142c48,#174c78,#1b304b);color:#eef7ff}
@@ -59,7 +56,7 @@ body.dark .hero{background:linear-gradient(135deg,#142c48,#174c78,#1b304b);color
 .hero p{font-size:19px;line-height:1.7;max-width:700px;margin:0 auto 28px}
 .hero-logo{display:inline-block;animation:logoFloat 3s ease-in-out infinite}
 @keyframes logoFloat{50%{transform:translateY(-12px) rotate(4deg)}}
-.hero-orb{position:absolute;border-radius:50%;background:rgba(255,255,255,.25);animation:float 9s ease-in-out infinite}
+.hero-orb{position:absolute;border-radius:50%;background:#ffffff40;animation:float 9s ease-in-out infinite}
 .orb1{width:180px;height:180px;top:10%;left:8%}
 .orb2{width:110px;height:110px;bottom:12%;right:12%;animation-delay:2s}
 .orb3{width:65px;height:65px;top:22%;right:25%;animation-delay:4s}
@@ -71,24 +68,41 @@ body.dark .hero{background:linear-gradient(135deg,#142c48,#174c78,#1b304b);color
 .stat strong{font-size:34px;color:var(--blue);display:block}
 .stat span{font-size:14px;color:var(--muted)}
 .about{text-align:center;max-width:850px;margin:auto;line-height:1.9;font-size:17px}
+
 .goals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .card{transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
-.card:hover{transform:translateY(-8px);box-shadow:0 16px 35px rgba(21,101,192,.17)}
+.card:hover{transform:translateY(-8px);box-shadow:0 16px 35px #1565c02b}
 .card .emoji{font-size:38px;display:block;margin-bottom:14px;animation:iconMove 3s ease-in-out infinite}
 .card:nth-child(even) .emoji{animation-delay:1s}
 @keyframes iconMove{50%{transform:translateY(-6px) rotate(5deg)}}
 .card h3{margin:0 0 10px;font-size:19px}
 .card p{color:var(--muted);line-height:1.6;font-size:14px;margin:0}
+
+/* KLIKALNE POSTULATY */
+.goal-card{
+cursor:pointer;text-align:left;color:var(--text);
+font-family:inherit;width:100%;border:1px solid var(--border);
+min-height:190px
+}
+.goal-card:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+.goal-card::after{
+content:"Kliknij, aby poznać szczegóły →";
+display:block;margin-top:17px;color:var(--blue);
+font-size:13px;font-weight:bold
+}
+
 .road-signs{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
 .sign{display:block;text-align:center;padding:20px 12px;background:var(--card);border:2px solid var(--border);border-radius:15px;font-weight:bold;transition:.25s;box-shadow:var(--shadow)}
 .sign:hover{transform:translateY(-7px) rotate(-1deg);border-color:var(--blue);color:var(--blue)}
 .sign span{display:block;font-size:27px;margin-bottom:8px}
+
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .form-card h3{margin-top:0}
 input,textarea,select{width:100%;padding:13px;margin:8px 0 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);outline:none}
 input:focus,textarea:focus,select:focus{border-color:var(--blue)}
 textarea{min-height:115px;resize:vertical}
 .status{font-size:14px;margin-top:12px;color:var(--blue)}
+
 .teacher-box{background:linear-gradient(135deg,#dceeff,#f6fbff);color:#173b61;border-radius:22px;padding:35px}
 body.dark .teacher-box{background:#203c5a;color:#e6f2ff}
 .teacher-box ul{line-height:2}
@@ -96,24 +110,59 @@ body.dark .teacher-box{background:#203c5a;color:#e6f2ff}
 .opinion{background:var(--card);padding:20px;border:1px solid var(--border);border-radius:15px}
 .opinion p{line-height:1.6;color:var(--muted)}
 .opinion small{color:var(--blue);font-weight:bold}
+
 footer{padding:35px 15px;text-align:center;background:var(--card);border-top:1px solid var(--border);color:var(--muted)}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
 .reveal.visible{opacity:1;transform:translateY(0)}
 #topButton{position:fixed;bottom:22px;right:22px;z-index:30;width:48px;height:48px;border:0;border-radius:50%;background:var(--blue);color:white;font-size:23px;box-shadow:var(--shadow);display:none}
 #topButton.show{display:block}
-#welcome{position:fixed;inset:0;background:rgba(8,30,55,.88);z-index:100;display:grid;place-items:center;padding:20px}
+
+#welcome{position:fixed;inset:0;background:#081e37e0;z-index:100;display:grid;place-items:center;padding:20px}
 .welcome-box{background:var(--card);color:var(--text);border-radius:25px;padding:40px;text-align:center;max-width:480px;width:100%;animation:welcomeIn .6s ease}
 @keyframes welcomeIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-.welcome-box .big{font-size:60px}
 .hidden{display:none!important}
+
+/* OKNO POSTULATU */
+.postulate-modal{
+position:fixed;inset:0;z-index:200;background:#081e37dc;
+display:grid;place-items:center;padding:20px
+}
+.postulate-content{
+background:var(--card);color:var(--text);padding:35px;
+border-radius:22px;max-width:650px;width:100%;
+max-height:85vh;overflow-y:auto;box-shadow:var(--shadow)
+}
+.postulate-content h2{color:var(--blue)}
+.postulate-description{line-height:1.9;font-size:16px;margin:25px 0;white-space:pre-wrap}
+
+/* IKONA I KOALICJA */
+.coalition-box{
+display:flex;align-items:center;justify-content:center;
+gap:25px;flex-wrap:wrap;background:var(--card);
+border:1px solid var(--border);border-radius:20px;
+padding:30px;box-shadow:var(--shadow);text-align:center
+}
+.coalition-icon{
+width:85px;height:85px;border:3px dashed var(--blue);
+border-radius:50%;display:grid;place-items:center;
+font-size:38px;background:var(--bg)
+}
+.coalition-text{max-width:380px}
+.icon-section{text-align:center;margin-bottom:45px}
+.icon-section .king-logo{width:150px;height:150px}
+
 .admin-card{margin-top:20px}
 .idea-item{padding:15px 0;border-bottom:1px solid var(--border);line-height:1.6}
 .idea-item button{margin-top:8px}
 .admin-columns{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 
 /* LATAJĄCY KOLIBER */
-#flyingHummingbird{position:fixed;top:25%;left:-100px;width:65px;height:55px;z-index:15;pointer-events:none;animation:hummingbirdFlight 24s linear infinite,hummingbirdHover 1.2s ease-in-out infinite}
-#flyingHummingbird svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 3px 5px rgba(21,101,192,.25))}
+#flyingHummingbird{
+position:fixed;top:25%;left:-100px;width:65px;height:55px;
+z-index:15;pointer-events:none;
+animation:hummingbirdFlight 24s linear infinite,hummingbirdHover 1.2s ease-in-out infinite
+}
+#flyingHummingbird svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 3px 5px #1565c040)}
 .hummingbird-wing{transform-box:fill-box;transform-origin:center;animation:wingFlap .13s ease-in-out infinite alternate}
 @keyframes hummingbirdFlight{
 0%{left:-100px;top:20%;transform:scaleX(1)}
@@ -143,6 +192,7 @@ nav a{font-size:12px}
 .goals-grid,.road-signs,.form-grid,.admin-columns,.opinion-list{grid-template-columns:1fr}
 .hero{min-height:500px}
 section{padding:55px 0}
+.postulate-content{padding:24px}
 }
 @media(prefers-reduced-motion:reduce){
 *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
@@ -154,7 +204,7 @@ section{padding:55px 0}
 
 <body>
 
-<!-- RYSUNEK KRÓLEWSKIEGO KOLIBRA -->
+<!-- KRÓLEWSKI KOLIBER -->
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true">
 <symbol id="kingHummingbird" viewBox="0 0 160 160">
 <defs>
@@ -169,24 +219,19 @@ section{padding:55px 0}
 </defs>
 <circle cx="80" cy="80" r="76" fill="#eaf8ff" stroke="#42b8f5" stroke-width="5"/>
 <circle cx="80" cy="80" r="69" fill="none" stroke="#fff" stroke-width="2"/>
-<!-- Tron -->
 <path d="M35 119 L35 75 Q35 60 49 60 L111 60 Q125 60 125 75 L125 119Z" fill="url(#gold)" stroke="#a36c16" stroke-width="4"/>
 <path d="M45 113 L45 78 L115 78 L115 113Z" fill="#287dc5"/>
 <path d="M30 119 L130 119 L137 137 L23 137Z" fill="url(#gold)" stroke="#a36c16" stroke-width="3"/>
 <circle cx="40" cy="68" r="7" fill="#ffe58a"/>
 <circle cx="120" cy="68" r="7" fill="#ffe58a"/>
-<!-- Królewski płaszcz -->
 <path d="M53 82 Q80 68 107 82 L119 132 Q80 145 41 132Z" fill="#b9e8ff" stroke="#fff" stroke-width="3"/>
 <path d="M55 84 L80 105 L105 84 L96 132 L64 132Z" fill="#65b9ee"/>
-<!-- Głowa i szyja -->
 <path d="M64 77 Q52 52 69 37 Q88 22 105 43 Q116 59 99 77Z" fill="url(#birdBody)" stroke="#1768a8" stroke-width="2"/>
 <path d="M101 49 L145 39 L105 58Z" fill="#17466f"/>
 <circle cx="98" cy="43" r="4" fill="#102f55"/>
 <circle cx="99" cy="42" r="1.5" fill="#fff"/>
-<!-- Skrzydła -->
 <path d="M68 76 Q27 45 42 24 Q72 35 84 74Z" fill="#80d2ff" stroke="#258bd5" stroke-width="3"/>
 <path d="M91 78 Q125 47 117 27 Q91 39 83 75Z" fill="#a9e5ff" stroke="#258bd5" stroke-width="3"/>
-<!-- Korona -->
 <path d="M61 34 L56 13 L73 25 L81 5 L91 25 L108 13 L102 36Z" fill="url(#gold)" stroke="#9b6818" stroke-width="3"/>
 <path d="M61 35 L103 35 L100 43 L64 43Z" fill="#e8b83e" stroke="#9b6818" stroke-width="2"/>
 <circle cx="81" cy="31" r="4" fill="#55b9f4"/>
@@ -198,9 +243,12 @@ section{padding:55px 0}
 </symbol>
 </svg>
 
+<!-- POWITANIE -->
 <div id="welcome">
 <div class="welcome-box">
-<div class="king-logo"><svg viewBox="0 0 160 160"><use href="#kingHummingbird"/></svg></div>
+<div class="king-logo">
+<svg viewBox="0 0 160 160"><use href="#kingHummingbird"/></svg>
+</div>
 <h1>Witaj na 8Drodze!</h1>
 <p>Osiem pomysłów. Jeden wspólny cel. Lepsza przyszłość naszej szkoły!</p>
 <button class="btn" onclick="closeWelcome()">Poznaj nas!</button>
@@ -218,6 +266,7 @@ section{padding:55px 0}
 <a href="#about">O nas</a>
 <a href="#goals">Nasze cele</a>
 <a href="#ideas">Pomysły</a>
+<a href="#coalition">Nasza ikona i koalicja</a>
 <a href="#opinions">Opinie</a>
 <a href="#teachers">Dla nauczycieli</a>
 <a href="#admin">Administrator</a>
@@ -229,10 +278,15 @@ section{padding:55px 0}
 </header>
 
 <main>
+
 <section class="hero" id="home">
-<div class="hero-orb orb1"></div><div class="hero-orb orb2"></div><div class="hero-orb orb3"></div>
+<div class="hero-orb orb1"></div>
+<div class="hero-orb orb2"></div>
+<div class="hero-orb orb3"></div>
 <div class="hero-content">
-<div class="hero-logo king-logo"><svg viewBox="0 0 160 160"><use href="#kingHummingbird"/></svg></div>
+<div class="hero-logo king-logo">
+<svg viewBox="0 0 160 160"><use href="#kingHummingbird"/></svg>
+</div>
 <h1>8Dróg do przyszłości</h1>
 <p>Osiem pomysłów. Jeden wspólny cel. Razem możemy sprawić, że nasza szkoła będzie jeszcze lepszym miejscem!</p>
 <a href="#goals" class="btn">Poznaj nasze cele ↓</a>
@@ -248,39 +302,81 @@ section{padding:55px 0}
 <section id="about" class="container reveal">
 <h2>Kim jesteśmy?</h2>
 <p class="subtitle">Poznaj naszą ideę i wspólny cel.</p>
-<p class="about">Jesteśmy zgraną i zdecydowaną grupą młodych i zdolnych nastolatków. Naszym celem, jak sama nazwa naszej partii mówi, jest zaproponowanie aż 8 Dróg do przyszłości! Chcemy, aby nasza szkoła była miejscem pełnym radości, współpracy, pomysłów i pozytywnej energii.</p>
+<p class="about">
+Jesteśmy zgraną i zdecydowaną grupą młodych i zdolnych nastolatków.
+Naszym celem, jak sama nazwa naszej partii mówi, jest zaproponowanie
+aż 8 Dróg do przyszłości! Chcemy, aby nasza szkoła była miejscem
+pełnym radości, współpracy, pomysłów i pozytywnej energii.
+</p>
 </section>
 
+<!-- POSTULATY -->
 <section id="goals" class="container reveal">
 <h2>Nasze 8 postulatów</h2>
-<p class="subtitle">Osiem dróg, które mogą prowadzić do lepszej szkoły.</p>
+<p class="subtitle">Kliknij wybrany postulat, aby poznać jego szczegóły.</p>
+
 <div class="goals-grid">
-<article class="card" id="cel1"><span class="emoji">🍀</span><h3>Szczęśliwe numerki</h3><p>Więcej radości i pozytywnej energii.</p></article>
-<article class="card" id="cel2"><span class="emoji">📻</span><h3>Radiowęzeł</h3><p>Zawsze na bieżąco z ważnymi informacjami.</p></article>
-<article class="card" id="cel3"><span class="emoji">🤝</span><h3>Pomoc dyżurującym nauczycielom</h3><p>Większe wsparcie i lepsza organizacja.</p></article>
-<article class="card" id="cel4"><span class="emoji">🛋️</span><h3>Komfortowe miejsca na przerwy</h3><p>Wygodne strefy relaksu dla każdego!</p></article>
-<article class="card" id="cel5"><span class="emoji">❤️</span><h3>Kiermasze charytatywne</h3><p>Razem możemy pomagać innym i wspierać potrzebujących.</p></article>
-<article class="card" id="cel6"><span class="emoji">💡</span><h3>Skrzynka pomysłów</h3><p>Uczniowie mogą zgłaszać własne propozycje zmian w szkole.</p></article>
-<article class="card" id="cel7"><span class="emoji">🏆</span><h3>Konkursy na najładniejszą klasę</h3><p>Motywacja do dbania o szkolne sale.</p></article>
-<article class="card" id="cel8"><span class="emoji">🎉</span><h3>Dzień integracji</h3><p>Wspólne zabawy nauczycieli i uczniów, budujące dobre relacje.</p></article>
+
+<button class="card goal-card" id="cel1" onclick="openPostulate(1)">
+<span class="emoji">🍀</span>
+<h3>Szczęśliwe numerki</h3>
+</button>
+
+<button class="card goal-card" id="cel2" onclick="openPostulate(2)">
+<span class="emoji">🌳</span>
+<h3>Renowacja terenu zielonego</h3>
+</button>
+
+<button class="card goal-card" id="cel3" onclick="openPostulate(3)">
+<span class="emoji">🧺</span>
+<h3>Kocyki dla klas</h3>
+</button>
+
+<button class="card goal-card" id="cel4" onclick="openPostulate(4)">
+<span class="emoji">🛋️</span>
+<h3>Komfortowe miejsca na przerwy</h3>
+</button>
+
+<button class="card goal-card" id="cel5" onclick="openPostulate(5)">
+<span class="emoji">❤️</span>
+<h3>Kiermasze charytatywne</h3>
+</button>
+
+<button class="card goal-card" id="cel6" onclick="openPostulate(6)">
+<span class="emoji">💡</span>
+<h3>Skrzynka pomysłów</h3>
+</button>
+
+<button class="card goal-card" id="cel7" onclick="openPostulate(7)">
+<span class="emoji">🧠</span>
+<h3>Konkursy wiedzy ogólnej i tematycznej</h3>
+</button>
+
+<button class="card goal-card" id="cel8" onclick="openPostulate(8)">
+<span class="emoji">🎉</span>
+<h3>Dzień integracji</h3>
+</button>
+
 </div>
 </section>
 
+<!-- DROGOWSKAZY -->
 <section class="container reveal">
 <h2>Wybierz swoją drogę</h2>
 <p class="subtitle">Kliknij drogowskaz i przejdź do wybranego postulatu.</p>
 <div class="road-signs">
 <a class="sign" href="#cel1"><span>🍀</span>Droga radości</a>
-<a class="sign" href="#cel2"><span>📻</span>Droga informacji</a>
-<a class="sign" href="#cel3"><span>🤝</span>Droga współpracy</a>
+<a class="sign" href="#cel2"><span>🌳</span>Droga zieleni</a>
+<a class="sign" href="#cel3"><span>🧺</span>Droga lekcji na dworze</a>
 <a class="sign" href="#cel4"><span>🛋️</span>Droga komfortu</a>
 <a class="sign" href="#cel5"><span>❤️</span>Droga pomocy</a>
 <a class="sign" href="#cel6"><span>💡</span>Droga pomysłów</a>
-<a class="sign" href="#cel7"><span>🏆</span>Droga sukcesu</a>
+<a class="sign" href="#cel7"><span>🧠</span>Droga wiedzy</a>
 <a class="sign" href="#cel8"><span>🎉</span>Droga integracji</a>
 </div>
 </section>
 
+<!-- SKRZYNKA POMYSŁÓW -->
 <section id="ideas" class="container reveal">
 <h2>Skrzynka pomysłów</h2>
 <p class="subtitle">Masz pomysł na lepszą szkołę? Podziel się nim z nami! Nie musisz podawać swojego imienia.</p>
@@ -296,26 +392,62 @@ section{padding:55px 0}
 </div>
 </section>
 
+<!-- IKONA I KOALICJA -->
+<section class="container reveal" id="coalition">
+<h2>Nasza ikona</h2>
+<p class="subtitle">Poznaj symbol 8Dróg do przyszłości.</p>
+
+<div class="icon-section">
+<div class="king-logo">
+<svg viewBox="0 0 160 160"><use href="#kingHummingbird"/></svg>
+</div>
+<h3>Królewski Koliber</h3>
+<p class="subtitle">Symbol naszej inicjatywy.</p>
+</div>
+
+<h2>Nasza koalicja</h2>
+<p class="subtitle">Razem możemy osiągnąć jeszcze więcej!</p>
+
+<div class="coalition-box">
+<div>
+<div class="coalition-icon">❔</div>
+<p><strong>Koalicjant</strong></p>
+</div>
+<div class="coalition-text">
+<h3>Zawiązaliśmy koalicję z:</h3>
+<p>Miejsce na nazwę i ikonę naszego koalicjanta.</p>
+</div>
+</div>
+</section>
+
+<!-- OPINIE -->
 <section id="opinions" class="container reveal">
 <h2>Opinie uczniów i nauczycieli</h2>
 <p class="subtitle">Podziel się opinią o projekcie 8Dróg. Nie wpisuj danych prywatnych.</p>
+
 <div class="form-card" style="margin-bottom:25px">
 <form id="opinionForm">
 <label for="opinionName">Podpis (opcjonalnie)</label>
 <input id="opinionName" maxlength="60" placeholder="Np. Uczeń">
 <label for="opinionRole">Jestem</label>
-<select id="opinionRole"><option>Uczeń</option><option>Nauczyciel</option><option>Inna osoba</option></select>
+<select id="opinionRole">
+<option>Uczeń</option>
+<option>Nauczyciel</option>
+<option>Inna osoba</option>
+</select>
 <label for="opinionText">Moja opinia</label>
 <textarea id="opinionText" maxlength="1000" required placeholder="Co sądzisz o naszych pomysłach?"></textarea>
 <button class="btn" type="submit">Wyślij opinię</button>
 <p class="status" id="opinionStatus" aria-live="polite"></p>
 </form>
 </div>
+
 <div class="opinion-list" id="opinionList">
 <div class="opinion"><p>Opinie pojawią się tutaj po zatwierdzeniu przez administratora.</p></div>
 </div>
 </section>
 
+<!-- NAUCZYCIELE -->
 <section id="teachers" class="container reveal">
 <h2>Strefa nauczyciela</h2>
 <p class="subtitle">Miejsce poświęcone współpracy uczniów i nauczycieli.</p>
@@ -332,15 +464,21 @@ section{padding:55px 0}
 </div>
 </section>
 
+<!-- LICZNIK -->
 <section class="container reveal">
 <h2>Nasza strona w liczbach</h2>
 <p class="subtitle">Sprawdzamy, ile razy odwiedzono stronę.</p>
-<div class="stat"><strong id="visitCount">...</strong><span>odwiedzin strony</span></div>
+<div class="stat">
+<strong id="visitCount">...</strong>
+<span>odwiedzin strony</span>
+</div>
 </section>
 
+<!-- ADMINISTRATOR -->
 <section id="admin" class="container reveal">
 <h2>Panel administratora</h2>
 <p class="subtitle">Miejsce do przeglądania zgłoszonych pomysłów i opinii.</p>
+
 <div class="form-card">
 <div id="loginBox">
 <h3>🔐 Logowanie administratora</h3>
@@ -349,17 +487,26 @@ section{padding:55px 0}
 <button class="btn" onclick="adminLogin()">Zaloguj się</button>
 <p class="status" id="loginStatus" aria-live="polite"></p>
 </div>
+
 <div id="adminPanel" class="hidden">
 <h3>Witaj w panelu administratora!</h3>
 <button class="btn" onclick="loadAdminData()">Odśwież zgłoszenia</button>
 <button class="small-btn secondary" onclick="adminLogout()">Wyloguj</button>
+
 <div class="admin-columns">
-<div class="admin-card"><h3>💡 Zgłoszone pomysły</h3><div id="adminIdeas">Ładowanie...</div></div>
-<div class="admin-card"><h3>💬 Opinie do zatwierdzenia</h3><div id="adminOpinions">Ładowanie...</div></div>
+<div class="admin-card">
+<h3>💡 Zgłoszone pomysły</h3>
+<div id="adminIdeas">Ładowanie...</div>
+</div>
+<div class="admin-card">
+<h3>💬 Opinie do zatwierdzenia</h3>
+<div id="adminOpinions">Ładowanie...</div>
+</div>
 </div>
 </div>
 </div>
 </section>
+
 </main>
 
 <footer>
@@ -369,6 +516,17 @@ section{padding:55px 0}
 </footer>
 
 <button id="topButton" aria-label="Wróć na górę" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- OKNO SZCZEGÓŁÓW POSTULATÓW -->
+<div id="postulateModal" class="postulate-modal hidden" onclick="if(event.target===this)closePostulate()">
+<div class="postulate-content" role="dialog" aria-modal="true" aria-labelledby="postulateTitle">
+<h2 id="postulateTitle"></h2>
+<div class="postulate-description" id="postulateDescription">
+Opis tego postulatu zostanie wkrótce dodany.
+</div>
+<button class="btn" onclick="closePostulate()">← Powrót do postulatów</button>
+</div>
+</div>
 
 <!-- LATAJĄCY KOLIBER -->
 <div id="flyingHummingbird" aria-hidden="true">
@@ -389,11 +547,43 @@ section{padding:55px 0}
 </div>
 
 <script>
+/* SUPABASE */
 const SUPABASE_URL="https://cvtoldutzctvpxijfsbb.supabase.co";
 const SUPABASE_KEY="sb_publishable_HYeGXb6W_rufl2rLsaaMPA_3MgwJ4T-";
 const ADMIN_EMAIL="legofan2700@gmail.com";
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
+/* POSTULATY */
+const postulateNames={
+1:"🍀 Szczęśliwe numerki",
+2:"🌳 Renowacja terenu zielonego",
+3:"🧺 Kocyki dla klas",
+4:"🛋️ Komfortowe miejsca na przerwy",
+5:"❤️ Kiermasze charytatywne",
+6:"💡 Skrzynka pomysłów",
+7:"🧠 Konkursy wiedzy ogólnej i tematycznej",
+8:"🎉 Dzień integracji"
+};
+
+function openPostulate(number){
+const modal=document.getElementById("postulateModal");
+document.getElementById("postulateTitle").textContent=postulateNames[number];
+document.getElementById("postulateDescription").textContent=
+"Opis tego postulatu zostanie wkrótce dodany.";
+modal.classList.remove("hidden");
+document.body.style.overflow="hidden";
+}
+
+function closePostulate(){
+document.getElementById("postulateModal").classList.add("hidden");
+document.body.style.overflow="";
+}
+
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape")closePostulate();
+});
+
+/* POWITANIE */
 function closeWelcome(){
 document.getElementById("welcome").classList.add("hidden");
 sessionStorage.setItem("welcomeSeen","yes");
@@ -402,6 +592,7 @@ if(sessionStorage.getItem("welcomeSeen")==="yes"){
 document.getElementById("welcome").classList.add("hidden");
 }
 
+/* TRYB CIEMNY */
 function toggleTheme(){
 document.body.classList.toggle("dark");
 const dark=document.body.classList.contains("dark");
@@ -413,6 +604,7 @@ document.body.classList.add("dark");
 document.getElementById("themeButton").textContent="☀️";
 }
 
+/* ANIMACJE */
 const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
@@ -421,12 +613,14 @@ observer.unobserve(entry.target);
 }
 });
 },{threshold:.12});
+
 document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
 window.addEventListener("scroll",()=>{
 document.getElementById("topButton").classList.toggle("show",window.scrollY>500);
 });
 
+/* LICZNIK ODWIEDZIN */
 async function countVisit(){
 const {data,error}=await db.rpc("increment_page_visits");
 if(!error&&data!==null){
@@ -438,14 +632,20 @@ console.error(error);
 }
 countVisit();
 
+/* SKRZYNKA POMYSŁÓW */
 document.getElementById("ideaForm").addEventListener("submit",async e=>{
 e.preventDefault();
+
 const status=document.getElementById("ideaStatus");
 const imie=document.getElementById("ideaName").value.trim()||"Anonim";
 const tresc=document.getElementById("ideaText").value.trim();
+
 if(!tresc)return;
+
 status.textContent="Wysyłanie...";
+
 const {error}=await db.from("pomysly").insert([{imie,tresc}]);
+
 if(error){
 status.textContent="Nie udało się wysłać. Spróbuj ponownie.";
 console.error(error);
@@ -455,15 +655,21 @@ e.target.reset();
 }
 });
 
+/* OPINIE */
 document.getElementById("opinionForm").addEventListener("submit",async e=>{
 e.preventDefault();
+
 const status=document.getElementById("opinionStatus");
 const podpis=document.getElementById("opinionName").value.trim()||"Anonim";
 const rola=document.getElementById("opinionRole").value;
 const tresc=document.getElementById("opinionText").value.trim();
+
 if(!tresc)return;
+
 status.textContent="Wysyłanie...";
+
 const {error}=await db.from("opinie").insert([{podpis,rola,tresc}]);
+
 if(error){
 status.textContent="Nie udało się wysłać opinii. Spróbuj ponownie.";
 console.error(error);
@@ -473,43 +679,70 @@ e.target.reset();
 }
 });
 
+/* BEZPIECZNE WYŚWIETLANIE TEKSTU */
+function escapeHTML(value){
+return String(value??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[c]));
+}
+
+/* PUBLICZNE OPINIE */
 async function loadPublicOpinions(){
-const {data,error}=await db.from("opinie").select("podpis,rola,tresc,created_at").eq("zatwierdzona",true).order("created_at",{ascending:false}).limit(6);
+const {data,error}=await db.from("opinie")
+.select("podpis,rola,tresc,created_at")
+.eq("zatwierdzona",true)
+.order("created_at",{ascending:false})
+.limit(6);
+
 const box=document.getElementById("opinionList");
+
 if(error){
 box.innerHTML='<div class="opinion"><p>Nie udało się wczytać opinii.</p></div>';
 console.error(error);
 return;
 }
+
 if(!data.length){
 box.innerHTML='<div class="opinion"><p>Nie ma jeszcze opublikowanych opinii. Możesz dodać pierwszą!</p></div>';
 return;
 }
+
 box.innerHTML=data.map(o=>`
 <article class="opinion">
 <small>${escapeHTML(o.rola)} · ${escapeHTML(o.podpis)}</small>
 <p>${escapeHTML(o.tresc)}</p>
-</article>`).join("");
-}
-
-function escapeHTML(value){
-return String(value??"").replace(/[&<>"']/g,c=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-}[c]));
+</article>
+`).join("");
 }
 loadPublicOpinions();
 
+/* LOGOWANIE ADMINISTRATORA */
 async function adminLogin(){
 const password=document.getElementById("adminPassword").value;
 const status=document.getElementById("loginStatus");
-if(!password){status.textContent="Wpisz hasło.";return;}
+
+if(!password){
+status.textContent="Wpisz hasło.";
+return;
+}
+
 status.textContent="Logowanie...";
-const {data,error}=await db.auth.signInWithPassword({email:ADMIN_EMAIL,password:password});
+
+const {data,error}=await db.auth.signInWithPassword({
+email:ADMIN_EMAIL,
+password:password
+});
+
 if(error||!data.user||data.user.email!==ADMIN_EMAIL){
 status.textContent="Nieprawidłowe hasło lub brak dostępu.";
 if(data.user)await db.auth.signOut();
 return;
 }
+
 showAdmin();
 }
 
@@ -527,16 +760,22 @@ document.getElementById("adminPassword").value="";
 document.getElementById("loginStatus").textContent="Wylogowano.";
 }
 
+/* ZGŁOSZENIA ADMINISTRATORA */
 async function loadAdminData(){
 const {data:userData}=await db.auth.getUser();
+
 if(!userData.user||userData.user.email!==ADMIN_EMAIL)return;
 
 const ideasBox=document.getElementById("adminIdeas");
 const opinionsBox=document.getElementById("adminOpinions");
+
 ideasBox.textContent="Ładowanie...";
 opinionsBox.textContent="Ładowanie...";
 
-const {data:ideas,error:ideasError}=await db.from("pomysly").select("*").order("created_at",{ascending:false});
+const {data:ideas,error:ideasError}=await db.from("pomysly")
+.select("*")
+.order("created_at",{ascending:false});
+
 if(ideasError){
 ideasBox.textContent="Nie udało się pobrać pomysłów.";
 }else if(!ideas.length){
@@ -547,10 +786,14 @@ ideasBox.innerHTML=ideas.map(p=>`
 <strong>${escapeHTML(p.imie||"Anonim")}</strong>
 <p>${escapeHTML(p.tresc)}</p>
 <button class="small-btn" onclick="deleteIdea(${Number(p.id)})">Usuń</button>
-</div>`).join("");
+</div>
+`).join("");
 }
 
-const {data:opinions,error:opinionsError}=await db.from("opinie").select("*").order("created_at",{ascending:false});
+const {data:opinions,error:opinionsError}=await db.from("opinie")
+.select("*")
+.order("created_at",{ascending:false});
+
 if(opinionsError){
 opinionsBox.textContent="Nie udało się pobrać opinii.";
 }else if(!opinions.length){
@@ -563,39 +806,56 @@ opinionsBox.innerHTML=opinions.map(o=>`
 <p>Status: ${o.zatwierdzona?"Opublikowana":"Oczekuje"}</p>
 ${o.zatwierdzona?"":`<button class="small-btn" onclick="approveOpinion('${o.id}')">Zatwierdź</button>`}
 <button class="small-btn secondary" onclick="deleteOpinion('${o.id}')">Usuń</button>
-</div>`).join("");
+</div>
+`).join("");
 }
 }
 
+/* USUWANIE POMYSŁÓW */
 async function deleteIdea(id){
 if(!confirm("Czy na pewno usunąć ten pomysł?"))return;
+
 const {error}=await db.from("pomysly").delete().eq("id",id);
+
 if(error)alert("Nie udało się usunąć pomysłu.");
 else await loadAdminData();
 }
 
+/* ZATWIERDZANIE OPINII */
 async function approveOpinion(id){
-const {error}=await db.from("opinie").update({zatwierdzona:true}).eq("id",id);
-if(error)alert("Nie udało się zatwierdzić opinii.");
-else{
+const {error}=await db.from("opinie")
+.update({zatwierdzona:true})
+.eq("id",id);
+
+if(error){
+alert("Nie udało się zatwierdzić opinii.");
+}else{
 await loadAdminData();
 await loadPublicOpinions();
 }
 }
 
+/* USUWANIE OPINII */
 async function deleteOpinion(id){
 if(!confirm("Czy na pewno usunąć tę opinię?"))return;
+
 const {error}=await db.from("opinie").delete().eq("id",id);
-if(error)alert("Nie udało się usunąć opinii.");
-else{
+
+if(error){
+alert("Nie udało się usunąć opinii.");
+}else{
 await loadAdminData();
 await loadPublicOpinions();
 }
 }
 
+/* AUTOMATYCZNE SPRAWDZENIE SESJI */
 db.auth.getSession().then(({data})=>{
-if(data.session&&data.session.user.email===ADMIN_EMAIL)showAdmin();
+if(data.session&&data.session.user.email===ADMIN_EMAIL){
+showAdmin();
+}
 });
 </script>
+
 </body>
 </html>
