@@ -1,0 +1,698 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8Dróg do przyszłości</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #34465a;
+    background: linear-gradient(135deg, #dceeff, #eef6ff, white);
+    overflow-x: hidden;
+}
+
+/* MENU */
+nav {
+    background: #1565c0;
+    padding: 17px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 3px 12px #8daac5;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #b8e8fa;
+}
+
+/* EKRAN POWITALNY */
+.hero {
+    min-height: 520px;
+    padding: 65px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1565c0, #89cff0, #dceeff);
+    color: white;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin: 10px;
+    animation: pojawienie 1s ease;
+}
+
+.hero p {
+    font-size: 21px;
+    margin: 15px;
+}
+
+.przycisk {
+    display: inline-block;
+    padding: 15px 30px;
+    margin-top: 20px;
+    background: white;
+    color: #1565c0;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.przycisk:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px white;
+}
+
+/* KOLIBER */
+.koliber {
+    width: 130px;
+    height: 110px;
+    margin: 10px auto;
+    animation: latanie 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 5px 8px #89cff0);
+}
+
+.koliber svg {
+    width: 100%;
+    height: 100%;
+}
+
+.skrzydlo {
+    transform-box: fill-box;
+    transform-origin: 50% 80%;
+    animation: machanie 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes latanie {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes machanie {
+    from { transform: rotate(-20deg); }
+    to { transform: rotate(25deg); }
+}
+
+@keyframes pojawienie {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* SEKCJE */
+section {
+    padding: 45px 20px;
+    text-align: center;
+}
+
+h2 {
+    color: #1565c0;
+    font-size: 30px;
+}
+
+.opis {
+    max-width: 800px;
+    margin: auto;
+    line-height: 1.7;
+    font-size: 18px;
+}
+
+/* LICZNIKI */
+.licznik {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.licznik div {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px #b3c8dd;
+    min-width: 150px;
+}
+
+.licznik strong {
+    display: block;
+    color: #1565c0;
+    font-size: 30px;
+}
+
+/* DROGI */
+.glowna-droga {
+    width: 20px;
+    height: 90px;
+    margin: 30px auto 0;
+    background: #526477;
+    border-left: 4px dashed white;
+    border-radius: 5px;
+}
+
+.rozwidlenie {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 65px 20px;
+}
+
+.cel {
+    background: white;
+    border: 3px solid #7896b5;
+    border-radius: 15px;
+    padding: 20px 14px;
+    position: relative;
+    box-shadow: 0 4px 10px #aab9c9;
+    min-height: 220px;
+    transition: 0.35s;
+    animation: pojawienie 0.8s ease both;
+}
+
+.cel::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 45px;
+    background: #526477;
+    border-left: 4px dashed white;
+    top: -48px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 4px;
+    transition: 0.35s;
+}
+
+.cel:hover {
+    transform: translateY(-9px) scale(1.03);
+    border-color: #89cff0;
+    box-shadow: 0 0 12px #89cff0, 0 0 28px #89cff0;
+}
+
+.cel:hover::before {
+    background: #89cff0;
+    box-shadow: 0 0 10px #89cff0;
+}
+
+.ikona {
+    font-size: 42px;
+    margin: 8px 0;
+    display: inline-block;
+    transition: 0.35s;
+}
+
+.cel:hover .ikona {
+    transform: scale(1.25) rotate(-8deg);
+}
+
+.numer {
+    background: #1565c0;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-weight: bold;
+}
+
+.cel h3 {
+    color: #1565c0;
+    font-size: 20px;
+}
+
+.cel p {
+    color: #777;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* SKRZYNKA POMYSŁÓW */
+.skrzynka {
+    max-width: 650px;
+    margin: 25px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 18px #b3c8dd;
+}
+
+.skrzynka textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 15px;
+    border: 2px solid #89cff0;
+    border-radius: 12px;
+    font-family: Arial;
+    font-size: 16px;
+    resize: vertical;
+}
+
+.skrzynka input,
+.admin-panel input {
+    width: 100%;
+    padding: 13px;
+    margin: 10px 0;
+    border: 2px solid #89cff0;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.skrzynka button,
+.admin-przycisk {
+    background: #1565c0;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 14px 28px;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.skrzynka button:hover,
+.admin-przycisk:hover {
+    background: #89cff0;
+    transform: scale(1.05);
+}
+
+#komunikat {
+    color: #1565c0;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* PANEL ADMINISTRATORA */
+.admin-panel {
+    display: none;
+    max-width: 750px;
+    margin: 25px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 5px 18px #b3c8dd;
+}
+
+.zgloszenie {
+    text-align: left;
+    padding: 15px;
+    margin: 12px 0;
+    background: #eef6ff;
+    border-left: 5px solid #89cff0;
+    border-radius: 10px;
+    overflow-wrap: anywhere;
+}
+
+.zgloszenie button {
+    background: #c0392b;
+    color: white;
+    border: none;
+    padding: 8px 13px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#blad {
+    color: #c0392b;
+    font-weight: bold;
+}
+
+/* STOPKA */
+footer {
+    background: #123e70;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+    margin-top: 40px;
+}
+
+footer h2 {
+    color: #b8e8fa;
+}
+
+footer p {
+    line-height: 1.6;
+}
+
+/* TELEFONY */
+@media (max-width: 750px) {
+    .rozwidlenie {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 60px 12px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 420px) {
+    .rozwidlenie {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        gap: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENU -->
+<nav>
+    <a href="#glowna">Strona główna</a>
+    <a href="#cele">Nasze cele</a>
+    <a href="#onas">O nas</a>
+    <a href="#pomysly">Skrzynka pomysłów</a>
+    <a href="#kontakt">Kontakt</a>
+</nav>
+
+<!-- EKRAN POWITALNY -->
+<div class="hero" id="glowna">
+
+    <div class="koliber">
+    <svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M65 65 L25 88 L58 76 L70 83 Z" fill="#89CFF0"/>
+        <path d="M112 43 L155 34 L114 50 Z" fill="#89CFF0"/>
+        <path d="M55 55 C70 25 112 25 123 45 C132 62 105 79 82 75 C65 73 54 65 55 55Z" fill="#89CFF0"/>
+        <circle cx="116" cy="39" r="15" fill="#89CFF0"/>
+        <circle cx="121" cy="36" r="2.5" fill="#1565C0"/>
+        <g class="skrzydlo">
+            <path d="M80 51 C65 5 28 2 15 18 C35 17 43 37 50 61 C60 70 72 67 80 51Z" fill="#B8E8FA"/>
+            <path d="M75 53 C57 25 38 16 22 18" stroke="#89CFF0" stroke-width="3" fill="none"/>
+        </g>
+    </svg>
+    </div>
+
+    <h1>8Dróg do przyszłości</h1>
+    <p>Przyszłość zaczyna się dziś!</p>
+    <a href="#cele" class="przycisk">Poznaj nasze cele ↓</a>
+
+</div>
+
+<!-- O NAS -->
+<section id="onas">
+    <h2>Kim jesteśmy?</h2>
+
+    <p class="opis">
+    Jesteśmy zgraną i zdecydowaną grupą młodych i zdolnych nastolatków.
+    Naszym celem, jak sama nazwa naszej partii mówi, jest zaproponowanie
+    aż 8 Dróg do przyszłości!
+    </p>
+
+    <div class="licznik">
+        <div>
+            <strong>8</strong>
+            naszych postulatów
+        </div>
+        <div>
+            <strong>1</strong>
+            wspólny cel
+        </div>
+        <div>
+            <strong>100%</strong>
+            zaangażowania
+        </div>
+    </div>
+</section>
+
+<!-- CELE -->
+<section id="cele">
+    <h2>Nasze 8 dróg do przyszłości</h2>
+
+    <div class="glowna-droga"></div>
+
+    <div class="rozwidlenie">
+
+        <div class="cel">
+            <div class="numer">1</div>
+            <div class="ikona">🍀</div>
+            <h3>Szczęśliwe numerki</h3>
+            <p>Więcej radości i pozytywnej energii.</p>
+        </div>
+
+        <div class="cel">
+            <div class="numer">2</div>
+            <div class="ikona">📻</div>
+            <h3>Radiowęzeł</h3>
+            <p>Zawsze na bieżąco z ważnymi informacjami.</p>
+        </div>
+
+        <div class="cel">
+            <div class="numer">3</div>
+            <div class="ikona">🤝</div>
+            <h3>Pomoc dyżurującym nauczycielom</h3>
+            <p>Większe wsparcie i lepsza organizacja.</p>
+        </div>
+
+        <div class="cel">
+            <div class="numer">4</div>
+            <div class="ikona">🛋️</div>
+            <h3>Komfortowe miejsca do spędzania przerw</h3>
+            <p>Wygodne strefy relaksu dla każdego!</p>
+        </div>
+
+        <div class="cel">
+            <div class="numer">5</div>
+            <div class="ikona">❤️</div>
+            <h3>Kiermasze charytatywne</h3>
+            <p>Razem możemy pomagać innym i wspierać potrzebujących.</p>
+        </div>
+
+        <div class="cel">
+            <div class="numer">6</div>
+            <div class="ikona">💡</div>
+            <h3>Skrzynka pomysłów</h3>
+            <p>Uczniowie mogą zgłaszać własne propozycje zmian w szkole.</p>
+        </div>
+
+        <div class="cel">
+            <div class="numer">7</div>
+            <div class="ikona">🏆</div>
+            <h3>Konkursy na najładniejszą klasę</h3>
+            <p>Motywacja do dbania o szkolne sale.</p>
+        </div>
+
+        <div class="cel">
+            <div class="numer">8</div>
+            <div class="ikona">🎉</div>
+            <h3>Dzień integracji nauczycieli i uczniów</h3>
+            <p>Wspólne zabawy i wydarzenia, które budują lepsze relacje, wzajemny szacunek i dobrą atmosferę w szkole.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- SKRZYNKA POMYSŁÓW -->
+<section id="pomysly">
+    <h2>💡 Masz pomysł? Podziel się nim!</h2>
+
+    <p class="opis">
+    Chcemy poznać Wasze zdanie. Napisz, co warto zmienić
+    lub ulepszyć w naszej szkole.
+    </p>
+
+    <div class="skrzynka">
+        <form id="formularz">
+            <input type="text" id="imie"
+            placeholder="Twoje imię (opcjonalnie)">
+
+            <textarea id="pomysl"
+            placeholder="Wpisz swój pomysł..."
+            required></textarea>
+
+            <button type="submit">Wyślij pomysł</button>
+        </form>
+
+        <p id="komunikat"></p>
+    </div>
+
+    <button class="admin-przycisk" onclick="pokazLogowanie()">
+        🔐 Panel administratora
+    </button>
+
+    <div class="admin-panel" id="logowanie">
+        <h2>🔐 Logowanie administratora</h2>
+
+        <input type="password" id="haslo"
+        placeholder="Wpisz hasło administratora">
+
+        <button class="admin-przycisk" onclick="zaloguj()">
+            Zaloguj się
+        </button>
+
+        <p id="blad"></p>
+    </div>
+
+    <div class="admin-panel" id="panel">
+        <h2>📋 Zgłoszone pomysły</h2>
+        <p id="liczba"></p>
+        <div id="lista"></div>
+
+        <button class="admin-przycisk" onclick="wyloguj()">
+            Wyloguj się
+        </button>
+    </div>
+</section>
+
+<!-- STOPKA -->
+<footer id="kontakt">
+    <h2>8Dróg do przyszłości</h2>
+    <p>8 DRÓG – JEDNA WSPÓLNA PRZYSZŁOŚĆ!</p>
+    <p>
+        Razem możemy zmienić naszą szkołę na lepsze.
+        <br>
+        Dziękujemy za odwiedzenie naszej strony!
+    </p>
+    <p>© 2026 8Dróg do przyszłości</p>
+</footer>
+
+<!-- OBSŁUGA SKRZYNKI I PANELU -->
+<script>
+
+const HASLO_ADMINA = "8Droga2026";
+
+let pomysly = JSON.parse(
+    localStorage.getItem("pomysly8Drog") || "[]"
+);
+
+document.getElementById("formularz").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const imie = document.getElementById("imie").value.trim();
+    const tresc = document.getElementById("pomysl").value.trim();
+
+    if (!tresc) return;
+
+    pomysly.push({
+        imie: imie || "Anonim",
+        tresc: tresc,
+        data: new Date().toLocaleString("pl-PL")
+    });
+
+    zapisz();
+
+    document.getElementById("formularz").reset();
+    document.getElementById("komunikat").textContent =
+        "Dziękujemy! Twój pomysł został zapisany. 💙";
+});
+
+function zapisz() {
+    localStorage.setItem("pomysly8Drog", JSON.stringify(pomysly));
+}
+
+function pokazLogowanie() {
+    document.getElementById("logowanie").style.display = "block";
+    document.getElementById("panel").style.display = "none";
+}
+
+function zaloguj() {
+    const haslo = document.getElementById("haslo").value;
+
+    if (haslo === HASLO_ADMINA) {
+        document.getElementById("logowanie").style.display = "none";
+        document.getElementById("panel").style.display = "block";
+        document.getElementById("haslo").value = "";
+        pokazPomysly();
+    } else {
+        document.getElementById("blad").textContent =
+            "Nieprawidłowe hasło!";
+    }
+}
+
+function pokazPomysly() {
+    pomysly = JSON.parse(
+        localStorage.getItem("pomysly8Drog") || "[]"
+    );
+
+    const lista = document.getElementById("lista");
+    lista.replaceChildren();
+
+    document.getElementById("liczba").textContent =
+        "Liczba zgłoszeń: " + pomysly.length;
+
+    if (pomysly.length === 0) {
+        lista.textContent = "Nie ma jeszcze żadnych pomysłów.";
+        return;
+    }
+
+    pomysly.forEach((p, index) => {
+        const karta = document.createElement("div");
+        karta.className = "zgloszenie";
+
+        const autor = document.createElement("strong");
+        autor.textContent = "Autor: " + p.imie;
+
+        const tresc = document.createElement("p");
+        tresc.textContent = p.tresc;
+
+        const data = document.createElement("small");
+        data.textContent = "Data: " + p.data;
+
+        const usun = document.createElement("button");
+        usun.textContent = "Usuń pomysł";
+
+        usun.onclick = function() {
+            pomysly.splice(index, 1);
+            zapisz();
+            pokazPomysly();
+        };
+
+        karta.append(
+            autor,
+            tresc,
+            data,
+            document.createElement("br"),
+            usun
+        );
+
+        lista.appendChild(karta);
+    });
+}
+
+function wyloguj() {
+    document.getElementById("panel").style.display = "none";
+    document.getElementById("logowanie").style.display = "none";
+    document.getElementById("haslo").value = "";
+    document.getElementById("blad").textContent = "";
+}
+
+</script>
+
+</body>
+</html>
