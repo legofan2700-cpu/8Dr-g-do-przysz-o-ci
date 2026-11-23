@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -125,9 +124,50 @@ fill:#bce5ff;stroke-width:8
 fill:#1565c0;font-size:21px;font-weight:bold;
 text-anchor:middle;pointer-events:none
 }
+
+/* KLIKALNE ŚRODKOWE KOŁO */
+.road-main-button{
+cursor:pointer;
+outline:none
+}
+.road-main-button circle{
+transition:.2s
+}
+.road-main-button:hover circle{
+fill:#3698e8;
+stroke:#fff;
+stroke-width:9
+}
+.road-main-button:focus-visible circle{
+stroke:#ffe58a;
+stroke-width:9
+}
+.road-main-button text{
+pointer-events:none
+}
+
+.road-hint{
+text-align:center;
+color:var(--blue);
+font-weight:bold;
+margin:15px 0 5px;
+line-height:1.6
+}
+
+/* LISTA 8 POSTULATÓW */
 .road-destinations{
-display:grid;grid-template-columns:repeat(4,1fr);
-gap:12px;margin-top:15px
+display:none;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+margin-top:15px
+}
+.road-destinations.show{
+display:grid;
+animation:roadsAppear .45s ease
+}
+@keyframes roadsAppear{
+from{opacity:0;transform:translateY(-12px)}
+to{opacity:1;transform:translateY(0)}
 }
 .road-destinations a{
 display:block;padding:15px 9px;text-align:center;
@@ -401,7 +441,8 @@ pełnym radości, współpracy, pomysłów i pozytywnej energii.
 <h2>Wybierz swoją drogę</h2>
 <p class="subtitle">
 Jedna wspólna droga rozchodzi się na osiem kierunków.
-Kliknij numer lub nazwę postulatu, aby przejść do niego i automatycznie otworzyć szczegóły.
+Kliknij środkowe koło „8 DRÓG”, aby zobaczyć wszystkie postulaty.
+Następnie wybierz numer lub nazwę, aby otworzyć szczegóły.
 </p>
 
 <div class="eight-roads">
@@ -443,9 +484,20 @@ aria-label="Droga rozgałęziająca się na osiem dróg prowadzących do postula
 <path d="M500 390 Q720 350 970 300"/>
 </g>
 
-<circle cx="500" cy="390" r="42" fill="#1565c0" stroke="#fff" stroke-width="6"/>
-<text x="500" y="386" fill="white" font-size="17" font-weight="bold" text-anchor="middle">8</text>
-<text x="500" y="405" fill="white" font-size="10" text-anchor="middle">DRÓG</text>
+<!-- KLIKALNE ŚRODKOWE KOŁO -->
+<a href="#roadDestinations"
+   class="road-main-button"
+   role="button"
+   aria-label="Otwórz osiem dróg do przyszłości"
+   onclick="toggleRoads();return false;">
+    <circle cx="500" cy="390" r="42"
+            fill="#1565c0" stroke="#fff" stroke-width="6"/>
+    <text x="500" y="386" fill="white"
+          font-size="17" font-weight="bold"
+          text-anchor="middle">8</text>
+    <text x="500" y="405" fill="white"
+          font-size="10" text-anchor="middle">DRÓG</text>
+</a>
 
 <a href="#cel1" class="road-point-link" aria-label="Postulat 1" onclick="goToPostulate(1);return false;">
 <circle class="road-point" cx="80" cy="75" r="25"/>
@@ -488,7 +540,11 @@ aria-label="Droga rozgałęziająca się na osiem dróg prowadzących do postula
 </a>
 </svg>
 
-<div class="road-destinations">
+<p class="road-hint" id="roadHint">
+👆 Kliknij środkowe koło „8 DRÓG”, aby odkryć osiem kierunków!
+</p>
+
+<div class="road-destinations" id="roadDestinations">
 <a href="#cel1" onclick="goToPostulate(1);return false;">🍀 1. Szczęśliwe numerki</a>
 <a href="#cel2" onclick="goToPostulate(2);return false;">🌳 2. Renowacja terenu zielonego</a>
 <a href="#cel3" onclick="goToPostulate(3);return false;">🧺 3. Kocyki dla klas</a>
@@ -694,6 +750,20 @@ const postulateDescriptions={
 
 8:"Proponujemy organizowanie raz w miesiącu specjalnego Dnia Integracji. Podczas wybranych lekcji uczniowie wraz z nauczycielami uczestniczyliby we wspólnych zabawach, grach i aktywnościach klasowych. Chcemy, aby takie dni sprzyjały budowaniu relacji, wzajemnemu poznawaniu się i tworzeniu jeszcze bardziej przyjaznej atmosfery w naszej szkole. 🎉"
 };
+
+/* OTWIERANIE I ZAMYKANIE LISTY 8 DRÓG */
+function toggleRoads(){
+const destinations=document.getElementById("roadDestinations");
+const hint=document.getElementById("roadHint");
+
+destinations.classList.toggle("show");
+
+if(destinations.classList.contains("show")){
+hint.textContent="✨ 8 Dróg – 1 przyszłość! Wybierz jeden z ośmiu kierunków.";
+}else{
+hint.textContent="👆 Kliknij środkowe koło „8 DRÓG”, aby odkryć osiem kierunków!";
+}
+}
 
 function openPostulate(number){
 const modal=document.getElementById("postulateModal");
